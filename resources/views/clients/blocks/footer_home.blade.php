@@ -50,7 +50,7 @@
                         <ul class="list-style-three">
                             <li><a href="{{ route('team') }}">Hướng dẫn viên tốt nhất</a></li>
                             <li><a href="{{ route('tours') }}">Đặt tour</a></li>
-                            <li><a href="{{ route('tours') }}">Đặt vé</a></li>
+                            <li><a href="{{ route('destination') }}">Điểm đến</a></li>
                         </ul>
                     </div>
                 </div>
@@ -123,9 +123,9 @@
                 </div>
                 <div class="col-lg-7 text-center text-lg-end">
                     <ul class="footer-bottom-nav">
-                        <li><a href="{{ route('about') }}">Điều khoản</a></li>
+                        <li><a href="{{ route('terms.of.use') }}">Điều khoản</a></li>
                         <li><a href="{{ route('privacy.policy') }}">Chính sách bảo mật</a></li>
-                        <li><a href="{{ route('about') }}">Thông báo pháp lý</a></li>
+                        <li><a href="{{ route('legal.notice') }}">Thông báo pháp lý</a></li>
                         <li><a href="{{ route('about') }}">Khả năng truy cập</a></li>
                     </ul>
                 </div>

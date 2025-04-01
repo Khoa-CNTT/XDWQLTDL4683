@@ -48,6 +48,16 @@ Route::get('/privacy-policy', function () {
     return view('clients.privacy-policy');
 })->name('privacy.policy');
 
+//Terms of Use
+Route::get('/terms-of-use', function () {
+    return view('clients.terms-of-use');
+})->name('terms.of.use');
+
+//Legal Notice
+Route::get('/legal-notice', function () {
+    return view('clients.legal-notice');
+})->name('legal.notice');
+
 //Handle Login
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/register', [LoginController::class, 'register'])->name('register');
