@@ -37,32 +37,27 @@ class TourDetailController extends Controller
             $checkDisplay = 'hide';
         }
 
-        
-        // Gọi API Python để lấy danh sách tour liên quan
-        try {
-            $apiUrl = 'http://127.0.0.1:5555/api/tour-recommendations';
-            $response = Http::get($apiUrl, [
-                'tour_id' => $id
-            ]);
-
-            if ($response->successful()) {
-                $relatedTours = $response->json('related_tours');
-            } else {
-                $relatedTours = [];
-            }
-        } catch (\Exception $e) {
-            // Xử lý lỗi khi gọi API
-            $relatedTours = [];
-            Log::error('Lỗi khi gọi API liên quan: ' . $e->getMessage());
+        // Check if the tour is in the user's wishlist
+        $isInWishlist = false;
+        if ($userId) {
+            $wishlist = new \App\Models\clients\Wishlist();
+            $isInWishlist = $wishlist->isInWishlist($userId, $id);
         }
 
-        $id_toursRe = $relatedTours;
+        // Lấy danh sách các tour tương tự từ cơ sở dữ liệu
+    $tourRecommendations = $this->tours->getSimilarTours($id);
 
-        $tourRecommendations = $this->tours->toursRecommendation($id_toursRe);
-        // dd($tourRecommendations);    
-        // dd($avgStar);
-
-        return view('clients.tour-detail', compact('title', 'tourDetail', 'getReviews', 'avgStar', 'countReview', 'checkDisplay','tourRecommendations'));
+    // Pass all variables to the view
+    return view('clients.tour-detail', compact(
+        'title',
+        'tourDetail',
+        'getReviews',
+        'avgStar',
+        'countReview',
+        'checkDisplay',
+        'isInWishlist',
+        'tourRecommendations'
+    ));
     }
 
     public function reviews(Request $req)

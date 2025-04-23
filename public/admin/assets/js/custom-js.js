@@ -323,7 +323,7 @@ $(document).ready(function () {
         // Khởi tạo Dropzone
         Dropzone.autoDiscover = false; // Ngăn Dropzone tự động init
         dropzoneOldImages = new Dropzone("#myDropzone-listTour", {
-            url: "http://travela:8000/admin/add-temp-images", // URL upload ảnh
+            url: "http://127.0.0.1:8000/admin/add-temp-images", // URL upload ảnh
             method: "post",
             paramName: "image",
             acceptedFiles: "image/*",
@@ -485,8 +485,6 @@ $(document).ready(function () {
         });
     });
 
-    
-
     /********************************************
      * ADD TOURS                              *
      ********************************************/
@@ -570,23 +568,23 @@ $(document).ready(function () {
      ********************************************/
     $(document).on("click", ".confirm-booking", function (e) {
         e.preventDefault();
-    
+
         // Lấy dữ liệu từ nút bấm
         const bookingId = $(this).data("bookingid");
         const urlConfirm = $(this).data("urlconfirm");
-    
+
         if (!bookingId || !urlConfirm) {
             console.error("Lỗi: bookingId hoặc urlConfirm bị thiếu!");
             return;
         }
-    
+
         console.log("Booking ID:", bookingId);
         console.log("URL Confirm:", urlConfirm);
-    
+
         // Thêm hiệu ứng loading vào nút
         const button = $(this);
         button.prop("disabled", true).text("Đang xác nhận...");
-    
+
         $.ajax({
             url: urlConfirm,
             method: "POST",
@@ -597,7 +595,11 @@ $(document).ready(function () {
             success: function (response) {
                 if (response.success) {
                     // Cập nhật giao diện ngay lập tức
-                    button.closest("td").html('<span class="badge badge-success">Đã xác nhận</span>');
+                    button
+                        .closest("td")
+                        .html(
+                            '<span class="badge badge-success">Đã xác nhận</span>'
+                        );
                     toastr.success(response.message);
                 } else {
                     toastr.error(response.message);
@@ -610,7 +612,6 @@ $(document).ready(function () {
             },
         });
     });
-    
 
     $(document).on("click", ".finish-booking", function (e) {
         e.preventDefault();
@@ -643,7 +644,6 @@ $(document).ready(function () {
         });
     });
 
-    
     /********************************************
      * BOOKING INVOICE                          *
      ********************************************/
@@ -822,7 +822,7 @@ $(document).ready(function () {
      ********************************************/
 
     $("#formProfileAdmin").on("submit", function (e) {
-        e.preventDefault(); 
+        e.preventDefault();
 
         var name = $("#fullName").val().trim();
         var password = $("#password").val().trim();
@@ -849,22 +849,22 @@ $(document).ready(function () {
 
         if (isValid) {
             $.ajax({
-                url: $(this).attr('action'), 
+                url: $(this).attr("action"),
                 method: "POST",
                 data: {
                     fullName: name,
                     password: password,
                     email: email,
                     address: address,
-                    '_token': $('meta[name="csrf-token"]').attr('content') 
+                    _token: $('meta[name="csrf-token"]').attr("content"),
                 },
                 success: function (response) {
-                    if(response.success){
+                    if (response.success) {
                         toastr.success("Cập nhật thành công!");
-                        $('#nameAdmin').text(response.data.fullName);
-                        $('#emailAdmin').text(response.data.email);
-                        $('#addressAdmin').text(response.data.address);
-                    }else{
+                        $("#nameAdmin").text(response.data.fullName);
+                        $("#emailAdmin").text(response.data.email);
+                        $("#addressAdmin").text(response.data.address);
+                    } else {
                         toastr.error(response.message);
                     }
                 },
@@ -884,11 +884,11 @@ $(document).ready(function () {
             const reader = new FileReader();
             reader.onload = function (e) {
                 $("#avatarAdminPreview").attr("src", e.target.result);
-                $('#navbarDropdown img').attr("src", e.target.result);
-                $('.profile_img').attr("src", e.target.result);
+                $("#navbarDropdown img").attr("src", e.target.result);
+                $(".profile_img").attr("src", e.target.result);
             };
             reader.readAsDataURL(file);
-            var url = $('#btn_avatar').attr('action');
+            var url = $("#btn_avatar").attr("action");
             // Tạo FormData để gửi file qua AJAX
             const formData = new FormData();
             formData.append("avatarAdmin", file);
@@ -900,7 +900,9 @@ $(document).ready(function () {
                 url: url,
                 type: "POST",
                 headers: {
-                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content'),
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                        "content"
+                    ),
                 },
                 data: formData,
                 contentType: false,
@@ -908,7 +910,6 @@ $(document).ready(function () {
                 success: function (response) {
                     if (response.success) {
                         toastr.success(response.message);
-                        
                     } else {
                         toastr.error(response.message);
                     }
@@ -924,40 +925,40 @@ $(document).ready(function () {
      ********************************************/
     $(document).ready(function () {
         // Toàn màn hình
-        $('#toggleFullscreen').click(function () {
+        $("#toggleFullscreen").click(function () {
             if (!document.fullscreenElement) {
                 document.documentElement.requestFullscreen();
             } else {
                 document.exitFullscreen();
             }
         });
-    
+
         // Lock sidebar
-        $('#lockSidebar').click(function () {
-            const body = $('body');
-            const leftCol = $('.left_col');
-            const navMenu = $('.nav_menu');
-    
-            body.toggleClass('nav-md nav-sm');
-            leftCol.toggleClass('scroll-view');
-            navMenu.toggleClass('nav-sm');
+        $("#lockSidebar").click(function () {
+            const body = $("body");
+            const leftCol = $(".left_col");
+            const navMenu = $(".nav_menu");
+
+            body.toggleClass("nav-md nav-sm");
+            leftCol.toggleClass("scroll-view");
+            navMenu.toggleClass("nav-sm");
         });
         // Áp dụng màu + lưu vào localStorage
-    $('#applySidebarColor').click(function () {
-        const color = $('#sidebarColorPicker').val();
-        $('.left_col').css('background-color', color);
-        localStorage.setItem('sidebarColor', color);
-        $('#sidebarColorModal').modal('hide');
+        $("#applySidebarColor").click(function () {
+            const color = $("#sidebarColorPicker").val();
+            $(".left_col").css("background-color", color);
+            localStorage.setItem("sidebarColor", color);
+            $("#sidebarColorModal").modal("hide");
+        });
+
+        // Khi tải lại trang, lấy màu từ localStorage
+        const savedColor = localStorage.getItem("sidebarColor");
+        if (savedColor) {
+            $(".left_col").css("background-color", savedColor);
+            $("#sidebarColorPicker").val(savedColor);
+        }
+
+        // Kích hoạt Tooltip
+        $("[title]").tooltip();
     });
-
-    // Khi tải lại trang, lấy màu từ localStorage
-    const savedColor = localStorage.getItem('sidebarColor');
-    if (savedColor) {
-        $('.left_col').css('background-color', savedColor);
-        $('#sidebarColorPicker').val(savedColor);
-    }
-
-    // Kích hoạt Tooltip
-    $('[title]').tooltip();
-    });   
 });

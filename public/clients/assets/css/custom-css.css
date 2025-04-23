@@ -465,3 +465,135 @@
     color: red;
     font-weight: bold;
 }
+
+/****************************************
+*           WEATHER FORECAST            *
+* ***************************************/
+.weather-container {
+    overflow-x: auto;
+    padding: 0 20px;
+}
+
+.weather-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.weather-title::before,
+.weather-title::after {
+    content: "";
+    flex-grow: 1;
+    border-bottom: 1px solid #000; /* Chỉnh màu đường line ở đây */
+    margin: 0 10px;
+}
+
+.weather-row {
+    display: flex;
+    gap: 20px;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    padding-bottom: 10px;
+    scroll-snap-type: x mandatory;
+}
+
+.weather-info {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    min-width: 200px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    scroll-snap-align: start;
+    transition: transform 0.2s ease;
+}
+
+.weather-info:hover {
+    transform: translateY(-5px);
+}
+
+.weather-info img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
+
+.weather-info h5 {
+    margin: 10px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+.weather-info p {
+    margin: 4px 0;
+    font-size: 15px;
+    color: #555;
+}
+
+/****************************************
+*                 CHATBOT               *
+* ***************************************/
+#chatbot-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+#chatbot-header {
+    background-color: #f7921e;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    transition: all 0.3s ease;
+}
+
+#chatbot-body {
+    display: none;
+    background-color: white;
+    border: 1px solid #f7921e;
+    border-radius: 0 0 10px 10px; /* Góc bo tròn phía dưới */
+    max-height: 400px;
+    overflow-y: auto;
+    width: 100%;
+}
+
+#chatbot-messages {
+    padding: 10px;
+    height: 300px;
+    overflow-y: auto;
+    width: 300px;
+}
+
+.chatbot-input-container {
+    padding: 10px;
+    border-top: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#chatbot-input {
+    width: 80%;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#chatbot-send {
+    width: 18%;
+    background-color: #f7921e;
+    color: white;
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}

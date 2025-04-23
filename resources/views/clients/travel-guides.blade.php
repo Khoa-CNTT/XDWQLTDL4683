@@ -8,12 +8,13 @@
             <div class="col-xl-5 col-lg-6">
                 <div class="mobile-app-content rmb-55" data-aos="fade-up" data-aos-duration="1500" data-aos-offset="50">
                     <div class="section-title counter-text-wrap mb-40">
-                        <h2>Ultimate Explorer's Handbook Hướng dẫn đầy đủ của bạn về các chuyến đi</h2>
+                        <h2>Sổ tay khám phá tối thượng</h2>
+                        <h2>Hướng dẫn đầy đủ của bạn về các chuyến đi</h2>
                     </div>
                     <p>Chúng tôi hợp tác chặt chẽ với khách hàng để hiểu rõ những thách thức và mục tiêu, cung cấp các
                         giải pháp tùy chỉnh nhằm nâng cao hiệu quả, tăng lợi nhuận và thúc đẩy tăng trưởng bền vững.</p>
                     <div class="skillbar mt-80" data-percent="93">
-                        <span class="skillbar-title">Clients Satisfactions</span>
+                        <span class="skillbar-title">Sự hài lòng của khách hàng</span>
                         <div class="progress-bar-striped skillbar-bar progress-bar-animated" role="progressbar"
                             aria-valuenow="93" aria-valuemin="0" aria-valuemax="100"></div>
                         <span class="skill-bar-percent"></span>
@@ -64,10 +65,11 @@
                 <div class="team-item hover-content" data-aos="fade-up" data-aos-duration="1500" data-aos-offset="50">
                     <img src="{{ asset('clients/assets/images/team/guide-hoang.jpg') }}" alt="Guide">
                     <div class="content">
-                        <h6>MINH HOANG</h6>
-                        <span class="designation">Travel Guide</span>
+                        <h6>MINH HOÀNG</h6>
+                        <span class="designation">Người sáng lập</span>
                         <div class="social-style-one inner-content">
-                            <a href="https://www.facebook.com/profile.php?id=100024356621721"><i class="fab fa-facebook-f"></i></a>
+                            <a href="https://www.facebook.com/profile.php?id=100024356621721"><i
+                                    class="fab fa-facebook-f"></i></a>
                             <a href="https://www.instagram.com/03_mhg/"><i class="fab fa-instagram"></i></a>
                             <a href="https://www.youtube.com/@minhhoangtran3785"><i class="fab fa-youtube"></i></a>
                             <a href="https://www.tiktok.com/"><i class="fab fa-tiktok"></i></a>
@@ -77,60 +79,62 @@
             </div>
             <div class="col-xl-3 col-lg-4 col-sm-6">
                 <div class="team-item hover-content" data-aos="fade-up" data-aos-duration="1500" data-aos-offset="50">
-                    <img src="{{ asset('clients/assets/images/team/guide-hoang.jpg') }}" alt="Guide">
+                    <img src="{{ asset('clients/assets/images/team/guide-khoi.jpg') }}" alt="Guide">
                     <div class="content">
-                        <h6>MINH HOANG</h6>
-                        <span class="designation">Travel Guide</span>
+                        <h6>VĂN KHÔI</h6>
+                        <span class="designation">Hướng dẫn viên du lịch</span>
                         <div class="social-style-one inner-content">
-                            <a href="https://www.facebook.com/profile.php?id=100024356621721"><i class="fab fa-facebook-f"></i></a>
-                            <a href="https://www.instagram.com/03_mhg/"><i class="fab fa-instagram"></i></a>
-                            <a href="https://www.youtube.com/@minhhoangtran3785"><i class="fab fa-youtube"></i></a>
-                            <a href="https://www.tiktok.com/"><i class="fab fa-tiktok"></i></a>
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                            <a href="#"><i class="fab fa-tiktok"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-xl-3 col-lg-4 col-sm-6">
                 <div class="team-item hover-content" data-aos="fade-up" data-aos-duration="1500" data-aos-offset="50">
-                    <img src="{{ asset('clients/assets/images/team/guide-hoang.jpg') }}" alt="Guide">
+                    <img src="{{ asset('clients/assets/images/team/guide-duy.jpg') }}" alt="Guide">
                     <div class="content">
-                        <h6>MINH HOANG</h6>
-                        <span class="designation">Travel Guide</span>
+                        <h6>TUẤN DUY</h6>
+                        <span class="designation">Hướng dẫn viên du lịch</span>
                         <div class="social-style-one inner-content">
-                            <a href="https://www.facebook.com/profile.php?id=100024356621721"><i class="fab fa-facebook-f"></i></a>
-                            <a href="https://www.instagram.com/03_mhg/"><i class="fab fa-instagram"></i></a>
-                            <a href="https://www.youtube.com/@minhhoangtran3785"><i class="fab fa-youtube"></i></a>
-                            <a href="https://www.tiktok.com/"><i class="fab fa-tiktok"></i></a>
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                            <a href="#"><i class="fab fa-tiktok"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-xl-3 col-lg-4 col-sm-6">
-                <div class="team-item hover-content" data-aos="fade-up" data-aos-duration="1500" data-aos-offset="50">
-                    <img src="{{ asset('clients/assets/images/team/guide-hoang.jpg') }}" alt="Guide">
+                <div class="team-item hover-content" data-aos="fade-up" data-aos-duration="1500"
+                    data-aos-offset="50">
+                    <img src="{{ asset('clients/assets/images/team/guide-phong.jpg') }}" alt="Guide">
                     <div class="content">
-                        <h6>MINH HOANG</h6>
-                        <span class="designation">Travel Guide</span>
+                        <h6>QUỐC PHONG</h6>
+                        <span class="designation">Hướng dẫn viên du lịch</span>
                         <div class="social-style-one inner-content">
-                            <a href="https://www.facebook.com/profile.php?id=100024356621721"><i class="fab fa-facebook-f"></i></a>
-                            <a href="https://www.instagram.com/03_mhg/"><i class="fab fa-instagram"></i></a>
-                            <a href="https://www.youtube.com/@minhhoangtran3785"><i class="fab fa-youtube"></i></a>
-                            <a href="https://www.tiktok.com/"><i class="fab fa-tiktok"></i></a>
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                            <a href="#"><i class="fab fa-tiktok"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-xl-3 col-lg-4 col-sm-6">
-                <div class="team-item hover-content" data-aos="fade-up" data-aos-duration="1500" data-aos-offset="50">
-                    <img src="{{ asset('clients/assets/images/team/guide-hoang.jpg') }}" alt="Guide">
+                <div class="team-item hover-content" data-aos="fade-up" data-aos-duration="1500"
+                    data-aos-offset="50">
+                    <img src="{{ asset('clients/assets/images/team/guide-bao.jpg') }}" alt="Guide">
                     <div class="content">
-                        <h6>MINH HOANG</h6>
-                        <span class="designation">Travel Guide</span>
+                        <h6>ĐÌNH BẢO</h6>
+                        <span class="designation">Hướng dẫn viên du lịch</span>
                         <div class="social-style-one inner-content">
-                            <a href="https://www.facebook.com/profile.php?id=100024356621721"><i class="fab fa-facebook-f"></i></a>
-                            <a href="https://www.instagram.com/03_mhg/"><i class="fab fa-instagram"></i></a>
-                            <a href="https://www.youtube.com/@minhhoangtran3785"><i class="fab fa-youtube"></i></a>
-                            <a href="https://www.tiktok.com/"><i class="fab fa-tiktok"></i></a>
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                            <a href="#"><i class="fab fa-tiktok"></i></a>
                         </div>
                     </div>
                 </div>

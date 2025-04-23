@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\clients\Home;
 use App\Models\clients\Tours;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 use function PHPUnit\Framework\isEmpty;
 
@@ -44,7 +45,7 @@ class HomeController extends Controller
             } catch (\Exception $e) {
                 // Xử lý lỗi khi gọi API
                 $tourIds = [];
-                \Log::error('Lỗi khi gọi API liên quan: ' . $e->getMessage());
+                Log::error('Lỗi khi gọi API liên quan: ' . $e->getMessage());
             }
 
             $toursPopular = $this->tours->toursRecommendation($tourIds);

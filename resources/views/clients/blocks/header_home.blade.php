@@ -38,7 +38,7 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     {{-- date time picker  --}}
     <link rel="stylesheet" href="{{ asset('clients/assets/css/jquery.datetimepicker.min.css') }}" />
-    {{-- custom css by Dien --}}
+    {{-- custom css --}}
     <link rel="stylesheet" href="{{ asset('clients/assets/css/custom-css.css') }}" />
     <!-- Import CSS for Toastr -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
@@ -149,6 +149,7 @@
                                         @if (session()->has('username'))
                                             <li><a href="{{ route('user-profile') }}">Thông tin cá nhân</a></li>
                                             <li><a href="{{ route('my-tours') }}">Tour đã đặt</a></li>
+                                            <li><a href="{{ route('wishlist.index') }}">Tour yêu thích</a></li>
                                             <li><a href="{{ route('logout') }}">Đăng xuất</a></li>
                                         @else
                                             <li><a href="{{ route('login') }}">Đăng nhập</a></li>

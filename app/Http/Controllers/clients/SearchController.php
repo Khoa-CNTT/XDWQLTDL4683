@@ -16,18 +16,28 @@ class SearchController extends Controller
     {
         $this->tours = new Tours();
     }
-
+    
     public function index(Request $request)
     {
         $title = 'Tìm kiếm';
-        
-        // Gọi API để lấy danh sách tỉnh thành
-        try {
-            $apiResponse = Http::get('https://provinces.open-api.vn/api/p/');
-            $provinces = $apiResponse->successful() ? $apiResponse->json() : [];
-        } catch (\Exception $e) {
-            $provinces = [];
-        }
+
+        $destinationMap = [
+            'dn' => 'Đà Nẵng',
+            'cd' => 'Côn Đảo',
+            'hn' => 'Hà Nội',
+            'hcm' => 'TP. Hồ Chí Minh',
+            'hl' => 'Hạ Long',
+            'nb' => 'Ninh Bình',
+            'pq' => 'Phú Quốc',
+            'dl' => 'Đà Lạt',
+            'qt' => 'Quảng Trị',
+            'kh' => 'Khánh Hòa',
+            'ct' => 'Cần Thơ',
+            'vt' => 'Vũng Tàu',
+            'qn' => 'Quảng Ninh',
+            'la' => 'Lào Cai',
+            'bd' => 'Bình Định',
+        ];
 
         $destination = $request->input('destination');
         $startDate = $request->input('start_date');
@@ -37,25 +47,22 @@ class SearchController extends Controller
         $formattedStartDate = $startDate ? Carbon::createFromFormat('d/m/Y', $startDate)->format('Y-m-d') : null;
         $formattedEndDate = $endDate ? Carbon::createFromFormat('d/m/Y', $endDate)->format('Y-m-d') : null;
 
-        // Lấy tên tỉnh thành từ API
-        $destinationName = null;
-        foreach ($provinces as $province) {
-            if ($province['code'] == $destination) {
-                $destinationName = $province['name'];
-                break;
-            }
-        }
+        // Chuyển đổi giá trị sang tên chi tiết nếu có trong mảng
+        $destinationName = $destinationMap[$destination];
 
         $dataSearch = [
             'destination' => $destinationName,
             'startDate' => $formattedStartDate,
             'endDate' => $formattedEndDate,
         ];
-
+        // dd($dataSearch);
         $tours = $this->tours->searchTours($dataSearch);
+
+        // dd($tours);
 
         return view('clients.search', compact('title', 'tours'));
     }
+
 
     public function searchTours(Request $request)
     {

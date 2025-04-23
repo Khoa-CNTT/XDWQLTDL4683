@@ -118,28 +118,6 @@
                         </ul>
                     </div>
 
-                    {{-- <div class="widget widget-duration" data-aos="fade-up" data-aos-duration="1500"
-                        data-aos-offset="50">
-                        <h6 class="widget-title">Thời gian</h6>
-                        <ul class="radio-filter">
-                            <li>
-                                <input class="form-check-input" type="radio" name="duration" id="3ngay2dem"
-                                    value="3n2d">
-                                <label for="3ngay2dem">3 ngày 2 đêm</label>
-                            </li>
-                            <li>
-                                <input class="form-check-input" type="radio" name="duration" id="4ngay3dem"
-                                    value="4n3d">
-                                <label for="4ngay3dem">4 ngày 3 đêm</label>
-                            </li>
-                            <li>
-                                <input class="form-check-input" type="radio" name="duration" id="5ngay4dem"
-                                    value="5n4d">
-                                <label for="5ngay4dem">5 ngày 4 đêm</label>
-                            </li>
-                        </ul>
-                    </div> --}}
-
                     @if (!$toursPopular->isEmpty())
                         <div class="widget widget-tour" data-aos="fade-up" data-aos-duration="1500"
                             data-aos-offset="50">
@@ -147,7 +125,7 @@
                             @foreach ($toursPopular as $tour)
                                 <div class="destination-item tour-grid style-three bgc-lighter">
                                     <div class="image">
-                                        <span class="badge">10% Off</span>
+                                        <span class="badge">NEW</span>
                                         <img src="{{ asset('clients/assets/images/gallery-tours/' . $tour->images[0]) }}"
                                             alt="Tour">
                                     </div>

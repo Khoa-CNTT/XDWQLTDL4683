@@ -20,25 +20,31 @@
         <div class="row justify-content-center">
             @php $count = 0; @endphp
             @foreach ($tours as $tour)
-                @if ($count < 4) <!-- Giới hạn 4 tour -->
+                @if ($count < 4)
+                    <!-- Giới hạn 4 tour -->
                     <div class="col-xxl-3 col-xl-4 col-md-6" style="margin-bottom: 30px">
                         <div class="destination-item block_tours" data-aos="fade-up" data-aos-duration="1500"
                             data-aos-offset="50">
                             <div class="image">
-                                <div class="ratting"><i class="fas fa-star"></i> {{ number_format($tour->rating, 1) }}</div>
-                                <a href="#" class="heart"><i class="fas fa-heart"></i></a>
+                                <div class="ratting"><i class="fas fa-star"></i> {{ number_format($tour->rating, 1) }}
+                                </div>
+
                                 <img src="{{ asset('clients/assets/images/gallery-tours/' . $tour->images[0]) }}"
-                                    alt="Destination">
+                                    alt="Destination" style="width: 100%; height: 200px; object-fit: cover">
                             </div>
                             <div class="content">
-                                <span class="location"><i class="fal fa-map-marker-alt"></i>{{ $tour->destination }}</span>
-                                <h5><a href="{{ route('tour-detail', ['id' => $tour->tourId]) }}">{{ $tour->title }}</a></h5>
+                                <span class="location"><i
+                                        class="fal fa-map-marker-alt"></i>{{ $tour->destination }}</span>
+                                <h5><a
+                                        href="{{ route('tour-detail', ['id' => $tour->tourId]) }}">{{ $tour->title }}</a>
+                                </h5>
                                 <span class="time">{{ $tour->time }}</span>
                             </div>
                             <div class="destination-footer">
-                                <span class="price"><span>{{ number_format($tour->priceAdult, 0, ',', '.') }}</span> VND / người</span>
-                                <a href="{{ route('tour-detail', ['id' => $tour->tourId]) }}" class="read-more">Đặt ngay <i
-                                        class="fal fa-angle-right"></i></a>
+                                <span class="price"><span>{{ number_format($tour->priceAdult, 0, ',', '.') }}</span>
+                                    VND / người</span>
+                                <a href="{{ route('tour-detail', ['id' => $tour->tourId]) }}" class="read-more">Đặt ngay
+                                    <i class="fal fa-angle-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -50,7 +56,7 @@
         <!-- Nút Xem Thêm -->
         <div class="view-more-btn" style="text-align: end">
             <a href="{{ route('tours') }}" class="btn-view-more">
-                Xem thêm  <i class="fas fa-arrow-right"></i>
+                Xem thêm <i class="fas fa-arrow-right"></i>
             </a>
         </div>
     </div>
@@ -94,9 +100,11 @@
             </div>
             <div class="col-xl-7 col-lg-6" data-aos="fade-right" data-aos-duration="1500" data-aos-offset="50">
                 <div class="about-us-image">
-                    <div class="shape"><img src="{{ asset('clients/assets/images/about/shape1.png') }}" alt="Shape">
+                    <div class="shape"><img src="{{ asset('clients/assets/images/about/shape1.png') }}"
+                            alt="Shape">
                     </div>
-                    <div class="shape"><img src="{{ asset('clients/assets/images/about/shape2.png') }}" alt="Shape">
+                    <div class="shape"><img src="{{ asset('clients/assets/images/about/shape2.png') }}"
+                            alt="Shape">
                     </div>
                     <div class="shape"><img src="{{ asset('clients/assets/images/about/shape3.png') }}"
                             alt="Shape"></div>

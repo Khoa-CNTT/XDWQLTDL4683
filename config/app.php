@@ -220,6 +220,4 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
     ])->toArray(),
     'PDF' => Barryvdh\DomPDF\Facade\Pdf::class,
-
-
 ];

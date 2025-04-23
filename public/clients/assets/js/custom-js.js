@@ -536,6 +536,16 @@ $(document).ready(function () {
                     parseInt($("#numChildren").val()) *
                         $("#numChildren").data("price-children"));
             toastr.success("Áp dụng mã giảm giá thành công!");
+        }
+        // Giả sử mã giảm giá là "DISCOUNT10" giảm 10%
+        else if (couponCode === "DISCOUNT20") {
+            discount =
+                0.2 *
+                (parseInt($("#numAdults").val()) *
+                    $("#numAdults").data("price-adults") +
+                    parseInt($("#numChildren").val()) *
+                        $("#numChildren").data("price-children"));
+            toastr.success("Áp dụng mã giảm giá thành công!");
         } else {
             discount = 0;
             toastr.error("Mã giảm giá không hợp lệ!");
@@ -1014,11 +1024,10 @@ $(document).ready(function () {
 });
 
 /****************************************
- *             PAGE WISHLIST            *
+ *             SHARE TOURS              *
  * ***************************************/
 document.addEventListener("DOMContentLoaded", function () {
     const shareBtn = document.querySelector(".share-btn");
-    const wishlistBtn = document.querySelector(".wishlist-btn");
     const shareModal = document.getElementById("shareModal");
     const closeModal = document.querySelector(".close");
     const copyLink = document.getElementById("copyLink");
@@ -1070,8 +1079,326 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
         });
     }
-
-    /****************************************
-     *             PAGE WISHLIST            *
-     * ***************************************/
 });
+
+/****************************************
+ *             PAGE WISHLIST            *
+ * ***************************************/
+// xử lý wishlist
+document.addEventListener("DOMContentLoaded", function () {
+    // Handle "Wish list" button click
+    document.body.addEventListener("click", function (e) {
+        if (e.target && e.target.id === "wishlist-button") {
+            e.preventDefault();
+
+            let tourId = e.target.getAttribute("data-tour-id");
+            let icon = document.getElementById("wishlist-icon");
+            let isInWishlist = icon.style.color === "red";
+
+            // Send AJAX request to toggle wishlist
+            fetch("/wishlist/toggle", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": document
+                        .querySelector('meta[name="csrf-token"]')
+                        .getAttribute("content"),
+                },
+                body: JSON.stringify({
+                    tourId: tourId,
+                    action: isInWishlist ? "remove" : "add",
+                }),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.success) {
+                        // Toggle the icon color
+                        icon.style.color = isInWishlist ? "white" : "red";
+                        toastr.success(data.message); // Show success message
+                    } else {
+                        toastr.error(data.message); // Show error message
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                    toastr.error("Đã xảy ra lỗi. Vui lòng thử lại.");
+                });
+        }
+    });
+});
+
+/****************************************
+ *             DATE PROSECCING          *
+ * ***************************************/
+document.addEventListener("DOMContentLoaded", function () {
+    const startDateInput = document.getElementById("startdate");
+    const endDateInput = document.getElementById("enddate");
+    const tourTimeElement = document.getElementById("tourTime");
+
+    if (startDateInput && endDateInput && tourTimeElement) {
+        const tourTime = parseInt(tourTimeElement.value, 10); // Tour duration in days
+        console.log("Tour Time:", tourTime);
+        console.log("Giá trị ngày bắt đầu mặc định:", startDateInput.value);
+
+        if (isNaN(tourTime)) {
+            console.error("Giá trị thời gian tham quan không hợp lệ.");
+            return;
+        }
+
+        startDateInput.addEventListener("change", function () {
+            console.log("Selected Start Date:", this.value);
+            const startDate = new Date(this.value);
+
+            if (!isNaN(startDate.getTime())) {
+                // Calculate the end date
+                startDate.setDate(startDate.getDate() + tourTime);
+                const year = startDate.getFullYear();
+                const month = (startDate.getMonth() + 1)
+                    .toString()
+                    .padStart(2, "0");
+                const day = startDate.getDate().toString().padStart(2, "0");
+
+                // Set the end date in the correct format (YYYY-MM-DD)
+                endDateInput.value = `${year}-${month}-${day}`;
+                console.log("Calculated End Date:", endDateInput.value);
+            } else {
+                console.error("Ngày bắt đầu được chọn không hợp lệ.");
+                endDateInput.value = "";
+            }
+        });
+
+        // Trigger the change event on page load to set the default end date
+        if (startDateInput.value !== "") {
+            startDateInput.dispatchEvent(new Event("change"));
+        }
+    } else {
+        console.error(
+            "Required elements (startdate, enddate, or tourTime) are missing."
+        );
+    }
+});
+
+/****************************************
+ *             WEATHER FORECAST         *
+ * ***************************************/
+document.addEventListener("DOMContentLoaded", function () {
+    const apiKey = "0cab6ec6144bf6bf37f30036e368227b";
+
+    // Lấy tên thành phố từ phần tử HTML
+    const cityElement = document.getElementById("weather-city");
+    if (!cityElement) {
+        console.error("Không tìm thấy thành phố nào cho dự báo thời tiết.");
+        return;
+    }
+
+    const city = encodeURIComponent(cityElement.dataset.city);
+    const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric&lang=vi`;
+
+    // Gọi API OpenWeather cho điểm đến đầu tiên
+    fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.cod !== "200") {
+                document.getElementById(
+                    "weather-box"
+                ).innerHTML = `<p>Không thể lấy dữ liệu thời tiết.</p>`;
+                return;
+            }
+
+            let weatherHTML = `<div class="weather-row row">`;
+            for (let i = 0; i < data.list.length; i += 8) {
+                const item = data.list[i];
+                const date = new Date(item.dt_txt).toLocaleDateString("vi-VN");
+                const icon = item.weather[0].icon;
+                const description = item.weather[0].description;
+                const temp = item.main.temp;
+                const humidity = item.main.humidity;
+                const wind = item.wind.speed;
+
+                weatherHTML += `
+                    <div class="col-md-3 mb-3">
+                        <div class="weather-info bg-light p-3 rounded">
+                            <h5 class="mb-2">${date}</h5>
+                            <img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="${description}">
+                            <p>${
+                                description.charAt(0).toUpperCase() +
+                                description.slice(1)
+                            }</p>
+                            <p>Nhiệt độ: ${temp}°C</p>
+                            <p>Độ ẩm: ${humidity}%</p>
+                            <p>Gió: ${wind} m/s</p>
+                        </div>
+                    </div>
+                `;
+            }
+            weatherHTML += `</div>`;
+            document.getElementById("weather-box").innerHTML = weatherHTML;
+        })
+        .catch((error) => {
+            console.error("Weather API error:", error);
+            document.getElementById(
+                "weather-box"
+            ).innerHTML = `<p>Có lỗi xảy ra khi tải dữ liệu thời tiết.</p>`;
+        });
+
+    // Kiểm tra xem phần tử #weather-destination có tồn tại không trước khi gọi API cho điểm đến thứ hai
+    const destinationElement = document.getElementById("weather-destination");
+    if (destinationElement) {
+        const destination = encodeURIComponent(destinationElement.dataset.city);
+        const destinationUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${destination}&appid=${apiKey}&units=metric&lang=vi`;
+
+        fetch(destinationUrl)
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.cod !== "200") {
+                    document.getElementById(
+                        "weather-destination-box"
+                    ).innerHTML = `<p>Không thể lấy dữ liệu thời tiết cho ${destinationElement.dataset.city}.</p>`;
+                    return;
+                }
+
+                let destinationWeatherHTML = `<div class="weather-row row">`;
+                for (let i = 0; i < data.list.length; i += 8) {
+                    const item = data.list[i];
+                    const date = new Date(item.dt_txt).toLocaleDateString(
+                        "vi-VN"
+                    );
+                    const icon = item.weather[0].icon;
+                    const description = item.weather[0].description;
+                    const temp = item.main.temp;
+                    const humidity = item.main.humidity;
+                    const wind = item.wind.speed;
+
+                    destinationWeatherHTML += `
+                        <div class="col-md-3 mb-3">
+                            <div class="weather-info bg-light p-3 rounded">
+                                <h5 class="mb-2">${date}</h5>
+                                <img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="${description}">
+                                <p>${
+                                    description.charAt(0).toUpperCase() +
+                                    description.slice(1)
+                                }</p>
+                                <p>Nhiệt độ: ${temp}°C</p>
+                                <p>Độ ẩm: ${humidity}%</p>
+                                <p>Gió: ${wind} m/s</p>
+                            </div>
+                        </div>
+                    `;
+                }
+                destinationWeatherHTML += `</div>`;
+                document.getElementById("weather-destination-box").innerHTML =
+                    destinationWeatherHTML;
+            })
+            .catch((error) => {
+                console.error("Weather API error:", error);
+                document.getElementById(
+                    "weather-destination-box"
+                ).innerHTML = `<p>Có lỗi xảy ra khi tải dữ liệu thời tiết cho ${destinationElement.dataset.city}.</p>`;
+            });
+    }
+});
+
+/****************************************
+ *                Chatbot               *
+ * ***************************************/
+function initializeChatbot(chatbotResponseRoute, csrfToken) {
+    const chatbotHeader = document.getElementById("chatbot-header");
+    const chatbotBody = document.getElementById("chatbot-body");
+    const chatbotMessages = document.getElementById("chatbot-messages");
+    const chatbotInput = document.getElementById("chatbot-input");
+    const chatbotSend = document.getElementById("chatbot-send");
+    //Đặt trang thái ban đầu của
+    chatbotBody.style.display = "none";
+    chatbotHeader.style.width = "50px";
+    chatbotHeader.style.height = "50px";
+    chatbotHeader.style.borderRadius = "50%";
+    // Chatbot toggle functionality
+    chatbotHeader.addEventListener("click", function () {
+        // Toggle chatbot visibility
+        if (
+            chatbotBody.style.display === "none" ||
+            chatbotBody.style.display === ""
+        ) {
+            chatbotBody.style.display = "block";
+            chatbotHeader.style.width = "300px";
+            chatbotHeader.style.height = "30px";
+            chatbotHeader.style.borderRadius = "10px 10px 0 0";
+
+            // Check if the default message already exists
+            if (!document.getElementById("default-message")) {
+                // Display default automated message
+                const defaultMessageElement = document.createElement("div");
+                defaultMessageElement.id = "default-message";
+                defaultMessageElement.style.textAlign = "left";
+                defaultMessageElement.style.margin = "5px 0";
+                defaultMessageElement.innerHTML = `
+                    <span style="background-color: #f1f1f1; color: black; padding: 5px 10px; border-radius: 10px; display: inline-block; text-align: left; line-height: 1.5;">
+                        Xin chào, tôi là trợ lý chatbot. Tôi có thể giúp gì cho bạn hôm nay?
+                    </span>`;
+                chatbotMessages.appendChild(defaultMessageElement);
+
+                // Scroll to the bottom
+                chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+            }
+        } else {
+            chatbotBody.style.display = "none";
+            chatbotHeader.style.width = "50px";
+            chatbotHeader.style.height = "50px";
+            chatbotHeader.style.borderRadius = "50%";
+        }
+    });
+
+    // Send message functionality
+    chatbotSend.addEventListener("click", function () {
+        const userMessage = chatbotInput.value.trim();
+        if (userMessage) {
+            // Display user message
+            const userMessageElement = document.createElement("div");
+            userMessageElement.style.textAlign = "right";
+            userMessageElement.style.margin = "5px 0";
+            userMessageElement.innerHTML = `
+                <span style="background-color: rgb(250, 170, 78); color: white; padding: 5px 10px; border-radius: 10px; display: inline-block; text-align: right; line-height: 1.5;">
+                    ${userMessage}
+                </span>`;
+            chatbotMessages.appendChild(userMessageElement);
+
+            // Send message to backend
+            fetch(chatbotResponseRoute, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": csrfToken,
+                },
+                body: JSON.stringify({ message: userMessage }),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    // Display bot response
+                    const botMessageElement = document.createElement("div");
+                    botMessageElement.style.textAlign = "left";
+                    botMessageElement.style.margin = "5px 0";
+                    botMessageElement.innerHTML = `
+                        <span style="background-color: #f1f1f1; color: black; padding: 5px 10px; border-radius: 10px; display: inline-block; text-align: left; line-height: 1.5;">
+                            ${data.response}
+                        </span>`;
+                    chatbotMessages.appendChild(botMessageElement);
+
+                    // Scroll to the bottom
+                    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                });
+
+            // Clear input
+            chatbotInput.value = "";
+        }
+    });
+
+    // Allow pressing Enter to send a message
+    chatbotInput.addEventListener("keypress", function (e) {
+        if (e.key === "Enter") {
+            chatbotSend.click();
+        }
+    });
+}

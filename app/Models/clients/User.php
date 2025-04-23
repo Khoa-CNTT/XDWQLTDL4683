@@ -43,8 +43,7 @@ class User extends Model
         ->join('tbl_checkout', 'tbl_booking.bookingId', '=', 'tbl_checkout.bookingId')
         ->where('tbl_booking.userId', $id)
         ->orderByDesc('tbl_booking.bookingDate')
-        ->take(3)
-        ->get();
+        ->paginate(5);
 
         foreach ($myTours as $tour) {
             // Lấy rating từ tbl_reviews cho mỗi tour
@@ -61,31 +60,5 @@ class User extends Model
         }
 
         return $myTours;
-    }
-
-    public function getWishlist($id)
-    {   
-        $myWishlist =  DB::table('tbl_wishlist')
-        ->join('tbl_tours', 'tbl_wishlist.tourId', '=', 'tbl_tours.tourId')
-        ->where('tbl_wishlist.userId', $id)
-        ->orderByDesc('tbl_wishlist.created_at')
-        ->take(3)
-        ->get();
-
-        foreach ($myWishlist as $tour) {
-            // Lấy rating từ tbl_reviews cho mỗi tour
-            $tour->rating = DB::table('tbl_reviews')
-                ->where('tourId', $tour->tourId)
-                ->where('userId', $id)
-                ->value('rating'); // Dùng value() để lấy giá trị rating
-        }
-        foreach ($myWishlist as $tour) {
-            // Lấy danh sách hình ảnh thuộc về tour
-            $tour->images = DB::table('tbl_images')
-                ->where('tourId', $tour->tourId)
-                ->pluck('imageUrl');
-        }
-
-        return $myWishlist;
     }
 }

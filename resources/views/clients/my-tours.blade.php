@@ -6,35 +6,8 @@
         <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-10 rmb-75">
                 <div class="shop-sidebar mb-30">
-                    <h6 class="widget-title">Chú ý lịch trình của mình! Nếu cần tư vấn, xin vui lòng liên hệ ngay: <br>hotline:+85905530635</h6>
-                    
-                    {{-- @if (!$toursPopular->isEmpty())
-                        <div class="widget widget-tour" data-aos="fade-up" data-aos-duration="1500"
-                            data-aos-offset="50">
-                            <h6 class="widget-title">Phổ biến Tours</h6>
-                            @foreach ($toursPopular as $tour)
-                                <div class="destination-item tour-grid style-three bgc-lighter">
-                                    <div class="image">
-                                        <img src="{{ asset('clients/assets/images/gallery-tours/' . $tour->images[0]) }}"
-                                            alt="Tour">
-                                    </div>
-                                    <div class="content">
-                                        <div class="destination-header">
-                                            <span class="location"><i class="fal fa-map-marker-alt"></i>
-                                                {{ $tour->destination }}</span>
-                                            <div class="ratting">
-                                                <i class="fas fa-star"></i>
-                                                <span>{{ $tour->rating }}</span>
-                                            </div>
-                                        </div>
-                                        <h6><a
-                                                href="{{ route('tour-detail', ['id' => $tour->tourId]) }}">{{ $tour->title }}</a>
-                                        </h6>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    @endif --}}
+                    <h6 class="widget-title">Chú ý lịch trình của mình! Nếu cần tư vấn, xin vui lòng liên hệ
+                        ngay: <br>hotline:+85905530635</h6>
                 </div>
 
             </div>
@@ -100,9 +73,15 @@
                         </div>
                     </div>
                 @endforeach
+                <!-- Hiển thị phân trang -->
+                <div class="pagination-wrapper"
+                    style="display: flex;
+                    justify-content: center;
+                    margin-top: 20px;">
+                    {{ $myTours->links('pagination::bootstrap-4') }}
+                </div>
             </div>
         </div>
-    </div>
 </section>
 <!-- Tour List Area end -->
 @include('clients.blocks.footer')

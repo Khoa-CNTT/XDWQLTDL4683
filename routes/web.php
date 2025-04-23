@@ -25,6 +25,8 @@ use App\Http\Controllers\clients\PayPalController;
 use App\Http\Controllers\clients\SearchController;
 use App\Http\Controllers\clients\TourBookedController;
 use App\Http\Controllers\clients\WishlistController;
+use App\Http\Controllers\clients\ChatbotController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +45,9 @@ Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/destination', [DestinationController::class, 'index'])->name('destination');
 Route::get('/travel-guides', [TravelGuidesController::class, 'index'])->name('team');
 
+//chat
+Route::post('/chatbot-response', [ChatbotController::class, 'getResponse'])->name('chatbot.response');
+
 //Privacy Policy
 Route::get('/privacy-policy', function () {
     return view('clients.privacy-policy');
@@ -58,6 +63,13 @@ Route::get('/legal-notice', function () {
     return view('clients.legal-notice');
 })->name('legal.notice');
 
+
+// Wishlist Routes
+Route::middleware('checkLoginClient')->group(function () {
+    Route::post('/wishlist/toggle', [WishlistController::class, 'toggleWishlist'])->name('wishlist.toggle');
+    Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
+});
+
 //Handle Login
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/register', [LoginController::class, 'register'])->name('register');
@@ -69,7 +81,7 @@ Route::get('activate-account/{token}', [LoginController::class, 'activateAccount
 Route::get('auth/google', [LoginGoogleController::class, 'redirectToGoogle'])->name('login-google');
 Route::get('auth/google/callback', [LoginGoogleController::class, 'handleGoogleCallback']);
 
-//Handle Get tours , filter Tours
+//Handle Get tours , filter Tours, discount
 Route::get('/tours', [ToursController::class, 'index'])->name('tours');
 Route::get('/filter-tours', [ToursController::class, 'filterTours'])->name('filter-tours');
 

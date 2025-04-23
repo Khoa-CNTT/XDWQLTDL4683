@@ -4,8 +4,10 @@
 <section class="tour-grid-page py-100 rel z-2">
     <div class="container">
         <div class="row">
+
             @if ($tours->isEmpty())
-                <h4 class="alert alert-danger">Không có tour nào liên quan đến tìm kiếm của bạn. Thử tìm kiếm với từ khóa khác nhé!</h4>
+                <h4 class="alert alert-danger">Không có tour nào liên quan đến tìm kiếm của bạn. Thử tìm kiếm với từ khóa
+                    khác nhé!</h4>
             @else
                 @foreach ($tours as $tour)
                     <div class="col-xl-4 col-md-6" style="margin-bottom: 30px">

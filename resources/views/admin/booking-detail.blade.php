@@ -36,7 +36,8 @@
                                                     <img src="{{ asset('admin/assets/images/icon/icon_office.png') }}"
                                                         alt=""
                                                         style="margin-right: 10px">{{ $invoice_booking->title }}
-                                                    <small class="pull-right">Ngày:
+                                                    <small class="pull-right"
+                                                        style="margin-left:50px; margin-top:5px;">Ngày:
                                                         {{ date('d-m-Y', strtotime($invoice_booking->bookingDate)) }}</small>
                                                 </h3>
                                             </div>
@@ -97,19 +98,19 @@
                                                             <td>Người lớn</td>
                                                             <td>{{ $invoice_booking->numAdults }}</td>
                                                             <td>{{ number_format($invoice_booking->priceAdult, 0, ',', '.') }}
-                                                                vnđ</td>
+                                                                VNĐ</td>
                                                             <td>{{ $invoice_booking->destination }}</td>
                                                             <td>{{ number_format($invoice_booking->priceAdult * $invoice_booking->numAdults, 0, ',', '.') }}
-                                                                vnđ</td>
+                                                                VNĐ</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Trẻ em</td>
                                                             <td>{{ $invoice_booking->numChildren }}</td>
                                                             <td>{{ number_format($invoice_booking->priceChild, 0, ',', '.') }}
-                                                                vnđ</td>
+                                                                VNĐ</td>
                                                             <td>{{ $invoice_booking->destination }}</td>
                                                             <td>{{ number_format($invoice_booking->priceChild * $invoice_booking->numChildren, 0, ',', '.') }}
-                                                                vnđ</td>
+                                                                VNĐ</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -148,20 +149,20 @@
                                                             <tr>
                                                                 <th style="width:50%">Tổng tiền:</th>
                                                                 <td>{{ number_format($invoice_booking->totalPrice, 0, ',', '.') }}
-                                                                    vnđ</td>
+                                                                    VNĐ</td>
                                                             </tr>
                                                             <tr>
                                                                 <th>Tax (0%)</th>
-                                                                <td>0 vnđ</td>
+                                                                <td>0 VNĐ</td>
                                                             </tr>
                                                             <tr>
                                                                 <th>Giảm giá</th>
-                                                                <td>0 vnđ</td>
+                                                                <td>0 VNĐ</td>
                                                             </tr>
                                                             <tr>
                                                                 <th>Tổng tiền:</th>
                                                                 <td>{{ number_format($invoice_booking->amount, 0, ',', '.') }}
-                                                                    vnđ</td>
+                                                                    VNĐ</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -193,8 +194,9 @@
                                     @endif
                                     <button id="received-money" data-bookingid= "{{ $invoice_booking->bookingId }}"
                                         data-urlPaid="{{ route('admin.received') }}"
-                                        class="btn btn-info pull-right {{ $hide }}" style="margin-right: 5px;"><i
-                                            class="glyphicon glyphicon-usd"></i> Đã thanh toán</button>
+                                        class="btn btn-info pull-right {{ $hide }}"
+                                        style="margin-right: 5px;"><i class="glyphicon glyphicon-usd"></i> Đã thanh
+                                        toán</button>
                                 </div>
                             </div>
                         </div>

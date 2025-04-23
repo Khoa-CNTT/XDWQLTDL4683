@@ -106,9 +106,17 @@
                 <div>
                     <p>Mã tour : {{ $tour->tourId }}</p>
                     <input type="hidden" name="tourId" id="tourId" value="{{ $tour->tourId }}">
+                    <input type="hidden" id="tourTime" value="{{ $tour->time }}">
                     <h5 class="widget-title">{{ $tour->title }}</h5>
-                    <p>Ngày khởi hành : {{ date('d-m-Y', strtotime($tour->startDate)) }}</p>
-                    <p>Ngày kết thúc : {{ date('d-m-Y', strtotime($tour->endDate)) }}</p>
+                    <p>Ngày khởi hành:</p>
+                    <input type="date" id="startdate" name="startdate"
+                        value="{{ old('startdate', date('Y-m-d')) }}"
+                        min="{{ date('Y-m-d', strtotime($tour->startDate)) }}"
+                        max="{{ date('Y-m-d', strtotime($tour->endDate)) }}" required
+                        style="border: 1px solid black; border-radius: 5px; padding: 8px; background-color: #fff; color: #535252;">
+                    <p>Ngày kết thúc:</p>
+                    <input type="text" id="enddate" name="enddate" readonly
+                        style="border: 1px solid black; border-radius: 5px; padding: 8px; background-color: #fff; color: #535252;">
                     <p class="quantityAvailable">Số chỗ còn nhận : {{ $tour->quantity }}</p>
                 </div>
 
@@ -151,7 +159,9 @@
                 <button type="submit" class="booking-btn btn-submit-booking">Xác Nhận</button>
 
                 <button id="btn-momo-payment" class="booking-btn" style="display: none;"
-                    data-urlmomo = "{{ route('createMomoPayment') }}">Thanh toán với Momo <img src="{{ asset('clients/assets/images/booking/icon-thanh-toan-momo.png') }}" alt="" style="width: 10%"></button>
+                    data-urlmomo = "{{ route('createMomoPayment') }}">Thanh toán với Momo <img
+                        src="{{ asset('clients/assets/images/booking/icon-thanh-toan-momo.png') }}" alt=""
+                        style="width: 10%"></button>
 
             </div>
         </div>

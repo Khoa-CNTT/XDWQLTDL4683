@@ -26,6 +26,8 @@ return new class extends Migration
             $table->integer('numChildren');
             $table->double('totalPrice');
             $table->enum('bookingStatus', ['y', 'b', 'f', 'c'])->default('b');
+            $table->date('start_date')->nullable();;
+            $table->date('end_date')->nullable();;
         });
     }
 

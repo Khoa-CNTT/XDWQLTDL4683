@@ -209,10 +209,10 @@ class Tours extends Model
 
         // Thêm điều kiện cho startDate và endDate nếu cần so sánh
         if (!empty($data['startDate'])) {
-            $tours->whereDate('startDate', '>=', $data['startDate']);
+            $tours->whereDate('startDate', '<=', $data['startDate']);
         }
         if (!empty($data['endDate'])) {
-            $tours->whereDate('endDate', '<=', $data['endDate']);
+            $tours->whereDate('endDate', '>=', $data['endDate']);
         }
 
         // Thêm điều kiện tìm kiếm với LIKE cho title, time và description
@@ -334,5 +334,33 @@ class Tours extends Model
 
         return $tourSearch;
     }
+    
+    //Lấy danh sách các tour tương tự dựa trên điểm đến
+    public function getSimilarTours($tourId)
+    {
+        // Lấy thông tin tour hiện tại
+        $currentTour = DB::table($this->table)->where('tourId', $tourId)->first();
 
+        if (!$currentTour) {
+            return collect(); // Trả về collection rỗng nếu không tìm thấy tour
+        }
+
+        // Lấy danh sách các tour tương tự dựa trên điểm đến
+        $similarTours = DB::table($this->table)
+            ->where('availability', 1)
+            ->where('tourId', '!=', $tourId) // Loại trừ tour hiện tại
+            ->where('destination', $currentTour->destination) // Cùng điểm đến
+            ->limit(5) // Giới hạn số lượng tour
+            ->get();
+
+        // Lấy hình ảnh và đánh giá cho từng tour
+        foreach ($similarTours as $tour) {
+            $tour->images = DB::table('tbl_images')
+                ->where('tourId', $tour->tourId)
+                ->pluck('imageUrl');
+            $tour->rating = $this->reviewStats($tour->tourId)->averageRating;
+        }
+
+        return $similarTours;
+    }
 }

@@ -179,10 +179,25 @@
 <script src="{{ asset('clients/assets/js/custom-js.js') }}"></script>
 <script src="{{ asset('clients/assets/js/jquery.datetimepicker.full.min.js') }}"></script>
 
-<!-- Dialogflow chat-->
-<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
-<df-messenger intent="WELCOME" chat-title="Travel" agent-id="33f891a9-2d34-46bc-baa1-b6ccd7d2bb89"
-    language-code="en"></df-messenger>
+<!-- Custom Chatbot -->
+<div id="chatbot-container">
+    <div id="chatbot-header">
+        <i class="fas fa-robot"></i>
+    </div>
+    <div id="chatbot-body">
+        <div id="chatbot-messages"></div>
+        <div class="chatbot-input-container">
+            <input type="text" id="chatbot-input" placeholder="Nhập tin nhắn của bạn...">
+            <button id="chatbot-send">Gửi</button>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    // Initialize the chatbot functionality
+    initializeChatbot('{{ route('chatbot.response') }}', '{{ csrf_token() }}');
+</script>
 
 </body>
 

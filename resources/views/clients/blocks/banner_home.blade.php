@@ -15,6 +15,21 @@
                     <span class="title">Điểm đến</span>
                     <select name="destination" id="destination">
                         <option value="">Chọn điểm đến</option>
+                        <option value="dn">Đà Nẵng</option>
+                        <option value="cd">Côn Đảo</option>
+                        <option value="hn">Hà Nội</option>
+                        <option value="hcm">Hồ Chí Minh</option>
+                        <option value="hl">Hạ Long</option>
+                        <option value="nb">Ninh Bình</option>
+                        <option value="pq">Phú Quốc</option>
+                        <option value="dl">Đà Lạt</option>
+                        <option value="qt">Quảng Trị</option>
+                        <option value="kh">Khánh Hòa (Nha Trang)</option>
+                        <option value="ct">Cần Thơ</option>
+                        <option value="vt">Vũng Tàu</option>
+                        <option value="qn">Quảng Ninh</option>
+                        <option value="la">Lào Cai (Sa Pa)</option>
+                        <option value="bd">Bình Định (Quy Nhơn)</option>
                     </select>
                 </div>
                 <div class="filter-item clearfix">
@@ -40,24 +55,3 @@
     </form>
 </section>
 <!-- Hero Area End -->
-
-<script>
-    async function loadProvinces() {
-        try {
-            const response = await fetch("https://provinces.open-api.vn/api/p/");
-            const provinces = await response.json();
-            const select = document.getElementById("destination");
-
-            provinces.forEach(province => {
-                let option = document.createElement("option");
-                option.value = province.code;
-                option.textContent = province.name;
-                select.appendChild(option);
-            });
-        } catch (error) {
-            console.error("Lỗi khi tải danh sách tỉnh/thành:", error);
-        }
-    }
-    
-    loadProvinces();
-</script>

@@ -17,6 +17,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&amp;display=swap"
         rel="stylesheet">
 
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+
     <!-- Flaticon -->
     <link rel="stylesheet" href="{{ asset('clients/assets/css/flaticon.min.css') }}">
     <!-- Font Awesome -->
@@ -149,6 +155,7 @@
                                         @if (session()->has('username'))
                                             <li><a href="{{ route('user-profile') }}">Thông tin cá nhân</a></li>
                                             <li><a href="{{ route('my-tours') }}">Tour đã đặt</a></li>
+                                            <li><a href="{{ route('wishlist.index') }}">Tour yêu thích</a></li>
                                             <li><a href="{{ route('logout') }}">Đăng xuất</a></li>
                                         @else
                                             <li><a href="{{ route('login') }}">Đăng nhập</a></li>

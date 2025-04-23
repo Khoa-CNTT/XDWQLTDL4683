@@ -5,7 +5,11 @@
         <div class="container">
             <div class="banner-inner pt-15 pb-25">
                 <h2 class="page-title mb-10 aos-init aos-animate" data-aos="fade-left" data-aos-duration="1500"
-                    data-aos-offset="50">{{ $tourDetail->destination }}</h2>
+                    data-aos-offset="50">{{ $tourDetail->destination }}
+                    @if ($tourDetail->weather_destination)
+                        , {{ $tourDetail->weather_destination }}
+                    @endif
+                </h2>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-center mb-20 aos-init aos-animate" data-aos="fade-right"
                         data-aos-delay="200" data-aos-duration="1500" data-aos-offset="50">
@@ -52,7 +56,6 @@
 </div>
 <!-- Tour Gallery End -->
 
-
 <!-- Tour Header Area start -->
 <section class="tour-header-area pt-70 rel z-1">
     <div class="container">
@@ -60,8 +63,13 @@
             <div class="col-xl-6 col-lg-7">
                 <div class="tour-header-content mb-15" data-aos="fade-left" data-aos-duration="1500"
                     data-aos-offset="50">
-                    <span class="location d-inline-block mb-10"><i class="fal fa-map-marker-alt"></i>
-                        {{ $tourDetail->destination }}</span>
+                    <span class="location d-inline-block mb-10">
+                        <i class="fal fa-map-marker-alt"></i>
+                        {{ $tourDetail->destination }}
+                        @if ($tourDetail->weather_destination)
+                            , {{ $tourDetail->weather_destination }}
+                        @endif
+                    </span>
                     <div class="section-title pb-5">
                         <h2>{{ $tourDetail->title }}</h2>
                     </div>
@@ -84,9 +92,8 @@
                     <!-- Wish List Button -->
                     <a href="#" id="wishlist-button" data-tour-id="{{ $tourDetail->tourId }}">
                         <i class="fas fa-heart" id="wishlist-icon"
-                            style="color: {{ $isInWishlist ? 'red' : 'gray' }}"></i> Wish list
+                            style="color: {{ $isInWishlist ? 'red' : 'white' }}"></i> Wish list
                     </a>
-
                 </div>
 
                 <!-- Modal Share -->
@@ -115,6 +122,38 @@
 </section>
 <!-- Tour Header Area end -->
 
+<!-- Weather Tour Area start -->
+<section class="weather-tour-area pt-50 pb-70 rel z-1">
+    <div class="weather-container">
+        <div class="section-title text-center mt-2 mb-40">
+            <h3 class="weather-title">Dự báo thời tiết tại {{ $tourDetail->destination }}</h3>
+        </div>
+        <div id="weather-box" class="text-center">
+            <p>Đang tải dữ liệu thời tiết cho {{ $tourDetail->destination }}...</p>
+        </div>
+    </div>
+    <div class="weather-container">
+        <!-- Kiểm tra xem weather_destination có giá trị không -->
+        @if ($tourDetail->weather_destination)
+            <div class="section-title text-center mt-2 mb-40">
+                <h3 class="weather-title">Dự báo thời tiết tại {{ $tourDetail->weather_destination }}</h3>
+            </div>
+            <div id="weather-box" class="text-center">
+                <div id="weather-destination-box" class="text-center">
+                    <p>Đang tải dữ liệu thời tiết cho {{ $tourDetail->weather_destination }}...</p>
+                </div>
+            </div>
+        @endif
+    </div>
+    <div id="weather-city" data-city="{{ Str::ascii(trim($tourDetail->destination)) }}" style="display: none;">
+    </div>
+    @if ($tourDetail->weather_destination)
+        <div id="weather-destination" data-city="{{ Str::ascii(trim($tourDetail->weather_destination)) }}"
+            style="display: none;"></div>
+    @endif
+
+</section>
+<!-- Weather Tour Area end -->
 
 <!-- Tour Details Area start -->
 <section class="tour-details-page pb-100">
@@ -178,7 +217,12 @@
                         </div>
                     @endforeach
                 </div>
-
+                <!-- Map start -->
+                <div style="margin-bottom:50px;" class="tour-details-content">
+                    <h3>Bản đồ 🌍</h3>
+                    <div id="map" style="width: 100%; height: 350px; border-radius: 8px;"></div>
+                </div>
+                <!-- Map end -->
                 <div id="partials_reviews">
                     @include('clients.partials.reviews')
                 </div>
@@ -234,21 +278,19 @@
                             @csrf
                             <div class="date mb-25">
                                 <b>Ngày bắt đầu</b>
-                                <input type="date" id="startdate" name="startdate"
-                                    min="{{ date('Y-m-d', strtotime($tourDetail->startDate)) }}"
-                                    max="{{ date('Y-m-d', strtotime($tourDetail->endDate)) }}"
-                                    value="{{ date('Y-m-d') }}" required>
+                                <input type="text" value="{{ date('d-m-Y', strtotime($tourDetail->startDate)) }}"
+                                    name="startdate" disabled>
                             </div>
                             <hr>
                             <div class="date mb-25">
                                 <b>Ngày kết thúc</b>
-                                <input type="text" id="enddate" name="enddate" disabled>
+                                <input type="text" value="{{ date('d-m-Y', strtotime($tourDetail->endDate)) }}"
+                                    name="enddate" disabled>
                             </div>
-
                             <hr>
                             <div class="time py-5">
                                 <b>Thời gian :</b>
-                                <p>{{ $tourDetail->time }} ngày</p>
+                                <p style="margin-top:16px";>{{ $tourDetail->time }}</p>
                                 <input type="hidden" id="tourTime" value="{{ $tourDetail->time }}">
                             </div>
                             <hr class="mb-25">
@@ -285,16 +327,16 @@
                             </li>
                         </ul>
                     </div>
-                    @if (!empty($tourRecommendations))
+
+                    @if (!empty($tourRecommendations) && $tourRecommendations->isNotEmpty())
                         <div class="widget widget-tour" data-aos="fade-up" data-aos-duration="1500"
                             data-aos-offset="50">
                             <h6 class="widget-title">Tours tương tự</h6>
                             @foreach ($tourRecommendations as $tour)
                                 <div class="destination-item tour-grid style-three bgc-lighter">
                                     <div class="image">
-                                        {{-- <span class="badge">10% Off</span> --}}
-                                        <img src="{{ asset('clients/assets/images/gallery-tours/' . $tour->images[0]) }}"
-                                            alt="Tour" style="max-height: 137px">
+                                        <img src="{{ asset('clients/assets/images/gallery-tours/' . ($tour->images[0] ?? 'default.jpg')) }}"
+                                            alt="{{ $tour->title }}" style="max-height: 137px; width: 100%;">
                                     </div>
                                     <div class="content">
                                         <div class="destination-header">
@@ -302,15 +344,25 @@
                                                 {{ $tour->destination }}</span>
                                             <div class="ratting">
                                                 <i class="fas fa-star"></i>
-                                                <span>({{ $tour->rating }})</span>
+                                                <span>({{ $tour->rating ?? '0' }})</span>
                                             </div>
                                         </div>
-                                        <h6><a
+                                        <h6>
+                                            <a
                                                 href="{{ route('tour-detail', ['id' => $tour->tourId]) }}">{{ $tour->title }}</a>
                                         </h6>
+                                        <p class="price">
+                                            {{ number_format($tour->priceAdult, 0, ',', '.') }} VND
+                                        </p>
                                     </div>
                                 </div>
                             @endforeach
+                        </div>
+                    @else
+                        <div class="widget widget-tour" data-aos="fade-up" data-aos-duration="1500"
+                            data-aos-offset="50">
+                            <h6 class="widget-title">Tours tương tự</h6>
+                            <p>Không có tour tương tự nào để hiển thị.</p>
                         </div>
                     @endif
 
@@ -320,53 +372,83 @@
     </div>
 </section>
 <!-- Tour Details Area end -->
+
+<!-- Leaflet -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
 <script>
-    document.getElementById('startdate').addEventListener('change', function() {
-        let startDate = new Date(this.value);
-        let tourTime = parseInt(document.getElementById('tourTime').value, 10);
+    const origin = @json($tourDetail->destination);
+    const destination = @json($tourDetail->weather_destination);
 
-        if (!isNaN(startDate.getTime()) && !isNaN(tourTime)) {
-            startDate.setDate(startDate.getDate() + tourTime);
-            // Format ngày kết thúc thành dd-mm-yyyy
-            let day = startDate.getDate().toString().padStart(2, '0');
-            let month = (startDate.getMonth() + 1).toString().padStart(2, '0');
-            let year = startDate.getFullYear();
+    const map = L.map('map').setView([0, 0], 6); // tạm thời đặt giữa
 
-            let formattedEndDate = `${day}/${month}/${year}`;
-            document.getElementById('enddate').value = formattedEndDate;
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    async function getCoordinates(location) {
+        const response = await fetch(
+            `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(location)}`);
+        const data = await response.json();
+        if (data.length > 0) {
+            return {
+                lat: parseFloat(data[0].lat),
+                lon: parseFloat(data[0].lon)
+            };
         }
-    });
+        throw new Error('Không tìm thấy tọa độ cho ' + location);
+    }
 
-    // Tự động cập nhật ngày kết thúc khi load trang với ngày bắt đầu mặc định
-    document.getElementById('startdate').dispatchEvent(new Event('change'));
+    async function initMap() {
+        try {
+            const start = await getCoordinates(origin);
 
-    document.getElementById('wishlist-button').addEventListener('click', function(e) {
-        e.preventDefault();
-        let tourId = this.getAttribute('data-tour-id');
-        let icon = document.getElementById('wishlist-icon');
-        let isInWishlist = icon.style.color === 'red';
+            // Nếu không có điểm đến -> chỉ hiển thị điểm bắt đầu
+            if (!destination) {
+                map.setView([start.lat, start.lon], 10);
+                L.marker([start.lat, start.lon]).addTo(map).bindPopup("Điểm: " + origin).openPopup();
+                return;
+            }
 
-        // Gửi AJAX để thêm hoặc xóa tour khỏi danh sách yêu thích
-        fetch('/wishlist', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                body: JSON.stringify({
-                    tourId,
-                    action: isInWishlist ? 'remove' : 'add'
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    icon.style.color = isInWishlist ? 'gray' : 'red';
-                }
-            })
-            .catch(error => console.error('Error:', error));
-    });
+            const end = await getCoordinates(destination);
+            map.setView([start.lat, start.lon], 7);
+
+            // Thêm marker
+            L.marker([start.lat, start.lon]).addTo(map).bindPopup("Điểm xuất phát: " + origin).openPopup();
+            L.marker([end.lat, end.lon]).addTo(map).bindPopup("Điểm đến: " + destination);
+
+            // Vẽ tuyến đường bằng OSRM
+            const routeUrl =
+                `https://router.project-osrm.org/route/v1/driving/${start.lon},${start.lat};${end.lon},${end.lat}?overview=full&geometries=geojson`;
+            const routeResponse = await fetch(routeUrl);
+            const routeData = await routeResponse.json();
+
+            if (routeData.routes && routeData.routes.length > 0) {
+                const route = routeData.routes[0].geometry;
+                L.geoJSON(route, {
+                    style: {
+                        color: 'blue',
+                        weight: 4,
+                        opacity: 0.7
+                    }
+                }).addTo(map);
+
+                const bounds = L.geoJSON(route).getBounds();
+                map.fitBounds(bounds);
+            } else {
+                alert('Không tìm thấy tuyến đường.');
+            }
+
+        } catch (error) {
+            console.error(error);
+            alert('Đã có lỗi khi tải bản đồ.');
+        }
+    }
+
+    initMap();
 </script>
+
 
 @include('clients.blocks.new_letter')
 @include('clients.blocks.footer')

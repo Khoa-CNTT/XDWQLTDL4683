@@ -28,7 +28,7 @@ return new class extends Migration
             $table->boolean('availability');
             $table->date('startDate');
             $table->date('endDate');
-            $table->string('reviews')->nullable();
+            $table->text('weather_destination')->nullable();
         });
     }
 

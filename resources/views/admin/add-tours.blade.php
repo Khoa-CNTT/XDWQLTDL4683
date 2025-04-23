@@ -85,11 +85,19 @@
                                                 </div>
                                             </div>
                                             <div class="field item form-group">
-                                                <label class="col-form-label col-md-3 col-sm-3  label-align">Điểm đến
+                                                <label class="col-form-label col-md-3 col-sm-3  label-align">Điểm đến
                                                     <span>*</span></label>
                                                 <div class="col-md-6 col-sm-6">
                                                     <input class="form-control" name="destination"
-                                                        placeholder="Điểm đến" required>
+                                                        placeholder="Điểm đếm 1" required>
+                                                </div>
+                                            </div>
+                                            <div class="field item form-group">
+                                                <label class="col-form-label col-md-3 col-sm-3  label-align">Điểm đến
+                                                    <span>(không bắt buộc)</span></label>
+                                                <div class="col-md-6 col-sm-6">
+                                                    <input class="form-control" name="weather_destination"
+                                                        placeholder="Điểm đến 2">
                                                 </div>
                                             </div>
                                             <div class="field item form-group">
@@ -108,8 +116,7 @@
                                                 <label class="col-form-label col-md-3 col-sm-3  label-align">Số lượng
                                                     <span>*</span></label>
                                                 <div class="col-md-6 col-sm-6">
-                                                    <input class="form-control" type="number" name="number"
-                                                        required>
+                                                    <input class="form-control" type="number" name="number" required>
                                                 </div>
                                             </div>
                                             <div class="field item form-group">
@@ -167,7 +174,8 @@
                                             </div>
                                         </form>
                                     </div>
-                                    <form action="{{ route('admin.add-timeline') }}" id="timeline-form" method="POST">
+                                    <form action="{{ route('admin.add-timeline') }}" id="timeline-form"
+                                        method="POST">
                                         @csrf
                                         <input type="hidden" name="tourId" class="hiddenTourId">
                                         <div id="step-3">

@@ -51,27 +51,6 @@
                             toán</a></label>
                 </div>
             </div>
-            <!-- Payment Method -->
-            <h2 class="booking-header">Phương Thức Thanh Toán</h2>
-
-            <label class="payment-option">
-                <input type="radio" value="office-payment" @if ($tour_booked->paymentMethod == 'office-payment') checked @endif disabled>
-                <img src="{{ asset('clients/assets/images/contact/icon.png') }}" alt="Office Payment">
-                Thanh toán tại văn phòng
-            </label>
-
-            <label class="payment-option">
-                <input type="radio" value="paypal-payment" @if ($tour_booked->paymentMethod == 'paypal-payment') checked @endif disabled>
-                <img src="{{ asset('clients/assets/images/booking/cong-thanh-toan-paypal.jpg') }}" alt="PayPal">
-                Thanh toán bằng PayPal
-            </label>
-
-            <label class="payment-option">
-                <input type="radio" value="momo-payment" @if ($tour_booked->paymentMethod == 'momo-payment') checked @endif disabled>
-                <img src="{{ asset('clients/assets/images/booking/thanh-toan-momo.jpg') }}" alt="MoMo">
-                Thanh toán bằng Momo
-            </label>
-
         </div>
 
         <!-- Order Summary -->
@@ -81,8 +60,8 @@
                     <p>Mã tour : {{ $tour_booked->tourId }}</p>
                     <input type="hidden" name="tourId" id="tourId" value="{{ $tour_booked->tourId }}">
                     <h5 class="widget-title">{{ $tour_booked->title }}</h5>
-                    <p>Ngày khởi hành : {{ date('d-m-Y', strtotime($tour_booked->startDate)) }}</p>
-                    <p>Ngày kết thúc : {{ date('d-m-Y', strtotime($tour_booked->endDate)) }}</p>
+                    <p>Ngày khởi hành : {{ date('d-m-Y', strtotime($tour_booked->start_date)) }}</p>
+                    <p>Ngày kết thúc : {{ date('d-m-Y', strtotime($tour_booked->end_date)) }}</p>
                 </div>
 
                 <div class="order-summary" style="border-bottom: 1px solid #d6d6d6; margin-bottom:20px">
@@ -116,6 +95,7 @@
                             </span>
                         </div>
                     </div>
+
                     <div class="summary-item total-price-booked">
                         <span>Tổng cộng:</span>
                         <span>{{ number_format($tour_booked->totalPrice, 0, ',', '.') }} VNĐ</span>
@@ -125,12 +105,12 @@
                 <input type="hidden" name="bookingId" value="{{ $bookingId }}">
 
                 @if ($tour_booked->bookingStatus == 'f')
-                    <a href="{{ route('tour-detail', ['id' => $tour_booked->tourId]) }}" class="booking-btn"style="display: inline-block; text-align: center;">
-                    Đánh giá
+                    <a href="{{ route('tour-detail', ['id' => $tour_booked->tourId]) }}" class="booking-btn"
+                        style="display: inline-block; text-align: center;">
+                        Đánh giá
                     </a>
                 @else
-                    <button type="submit" class="booking-btn btn-cancel-booking {{ $hide }}">Hủy
-                        Tour</button>
+                    <button type="submit" class="booking-btn btn-cancel-booking {{ $hide }}">Hủy Tour</button>
                 @endif
 
             </div>

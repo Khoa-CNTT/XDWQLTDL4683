@@ -34,6 +34,16 @@ class BookingController extends Controller
 
     public function createBooking(Request $req)
     {
+        $tourId = $req->input('tourId');
+        $tour = $this->tour->getTourDetail($tourId);
+
+        $req->validate([
+        'startdate' => 'required|date|after_or_equal:' . date('Y-m-d'),
+        'enddate' => 'required|date',
+    ]);
+
+    $startDate = $req->input('startdate');
+    $endDate = $req->input('enddate');
         // dd($req);
         $address = $req->input('address');
         $email = $req->input('email');
@@ -43,7 +53,6 @@ class BookingController extends Controller
         $paymentMethod = $req->input('payment_hidden');
         $tel = $req->input('tel');
         $totalPrice = $req->input('totalPrice');
-        $tourId = $req->input('tourId');
         $userId = $this->getUserId();
         /**
          * Xử lý booking và checkout
@@ -57,7 +66,9 @@ class BookingController extends Controller
             'numAdults' => $numAdults,
             'numChildren' => $numChildren,
             'phoneNumber' => $tel,
-            'totalPrice' => $totalPrice
+            'totalPrice' => $totalPrice,
+            'start_date' => $startDate,
+            'end_date' => $endDate,
         ];
 
         $bookingId = $this->booking->createBooking($dataBooking);
@@ -119,8 +130,8 @@ class BookingController extends Controller
             $requestId = time();
             $orderId = time();
             $extraData = "";
-            $redirectUrl = "http://travela:8000/booking"; // URL chuyển hướng
-            $ipnUrl = "http://travela:8000/booking"; // URL IPN
+            $redirectUrl = "http://127.0.0.1:8000/booking"; // URL chuyển hướng
+            $ipnUrl = "http://127.0.0.1:8000/booking"; // URL IPN
             $requestType = 'payWithATM'; // Kiểu yêu cầu
     
             // Tạo rawHash và chữ ký theo cách thủ công

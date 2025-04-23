@@ -2364,7 +2364,7 @@ function init_SmartWizard() {
     if ($("#myDropzone").length) {
         // Khởi tạo Dropzone cho bước 2
         var myDropzone = new Dropzone("#myDropzone", {
-            url: "http://travela:8000/admin/add-images-tours",
+            url: "http://127.0.0.1:8000/admin/add-images-tours",
             paramName: "image",
             maxFilesize: 5,
             acceptedFiles: "image/*",
@@ -2856,13 +2856,23 @@ function init_charts() {
         var ctx = document.getElementById("lineChart");
         var revenue = $("#lineChart").data("revenue-per-month");
         console.log(revenue);
-        
+
         var lineChart = new Chart(ctx, {
             type: "line",
             data: {
                 labels: [
-                    "January", "February", "March", "April", "May", "June",
-                    "July", "August", "September", "October", "November", "December"
+                    "January",
+                    "February",
+                    "March",
+                    "April",
+                    "May",
+                    "June",
+                    "July",
+                    "August",
+                    "September",
+                    "October",
+                    "November",
+                    "December",
                 ],
                 datasets: [
                     {
@@ -2874,8 +2884,8 @@ function init_charts() {
                         pointHoverBackgroundColor: "#fff",
                         pointHoverBorderColor: "rgba(220,220,220,1)",
                         pointBorderWidth: 1,
-                        data: revenue
-                    }
+                        data: revenue,
+                    },
                 ],
             },
         });
@@ -4957,35 +4967,40 @@ function init_echarts() {
     //echart Donut
 
     if ($("#echart_donut").length) {
-        var echartDonut = echarts.init(document.getElementById("echart_donut"), theme);
-    
+        var echartDonut = echarts.init(
+            document.getElementById("echart_donut"),
+            theme
+        );
+
         var paymentData = $("#echart_donut").data("payment-method");
-    
+
         var paymentMethodNames = {
             "momo-payment": "Thanh toán bằng Momo",
             "paypal-payment": "Thanh toán bằng Paypal",
             "office-payment": "Thanh toán tại văn phòng",
         };
-    
+
         var paymentMethodColors = {
-            "momo-payment": "#FF0000",  
-            "paypal-payment": "#0000FF", 
+            "momo-payment": "#FF0000",
+            "paypal-payment": "#0000FF",
             "office-payment": "#FFA500",
         };
-    
+
         // Chuẩn bị dữ liệu cho biểu đồ ECharts
-        var chartData = paymentData.map(function(item) {
+        var chartData = paymentData.map(function (item) {
             return {
-                value: item.count, 
-                name: paymentMethodNames[item.paymentMethod] || item.paymentMethod, 
+                value: item.count,
+                name:
+                    paymentMethodNames[item.paymentMethod] ||
+                    item.paymentMethod,
                 itemStyle: {
-                    color: paymentMethodColors[item.paymentMethod] || "#CCCCCC"
-                }
+                    color: paymentMethodColors[item.paymentMethod] || "#CCCCCC",
+                },
             };
         });
-    
-        console.log(chartData);  // Kiểm tra dữ liệu chuẩn bị cho biểu đồ
-    
+
+        console.log(chartData); // Kiểm tra dữ liệu chuẩn bị cho biểu đồ
+
         // Thiết lập biểu đồ ECharts
         echartDonut.setOption({
             tooltip: {
@@ -4996,8 +5011,11 @@ function init_echarts() {
             legend: {
                 x: "center",
                 y: "bottom",
-                data: paymentData.map(function(item) {
-                    return paymentMethodNames[item.paymentMethod] || item.paymentMethod;  // Tên phương thức thanh toán trong legend
+                data: paymentData.map(function (item) {
+                    return (
+                        paymentMethodNames[item.paymentMethod] ||
+                        item.paymentMethod
+                    ); // Tên phương thức thanh toán trong legend
                 }),
             },
             toolbox: {
@@ -5028,11 +5046,13 @@ function init_echarts() {
             series: [
                 {
                     name: "Payment Methods",
-                    type: "pie",  
-                    radius: ["35%", "55%"], 
-                    data: chartData,  
-                    color: paymentData.map(function(item) {
-                        return paymentMethodColors[item.paymentMethod] || "#CCCCCC";
+                    type: "pie",
+                    radius: ["35%", "55%"],
+                    data: chartData,
+                    color: paymentData.map(function (item) {
+                        return (
+                            paymentMethodColors[item.paymentMethod] || "#CCCCCC"
+                        );
                     }),
                     itemStyle: {
                         normal: {
@@ -5040,12 +5060,12 @@ function init_echarts() {
                                 show: true, // Hiển thị nhãn
                             },
                             labelLine: {
-                                show: true,  // Hiển thị đường nối từ nhãn
+                                show: true, // Hiển thị đường nối từ nhãn
                             },
                         },
                         emphasis: {
                             label: {
-                                show: true,  // Hiển thị nhãn khi di chuột
+                                show: true, // Hiển thị nhãn khi di chuột
                                 position: "center",
                                 textStyle: {
                                     fontSize: "14",
@@ -5058,7 +5078,6 @@ function init_echarts() {
             ],
         });
     }
-    
 
     //echart Pie
 
