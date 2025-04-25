@@ -204,7 +204,12 @@ class Tours extends Model
 
         // Thêm điều kiện cho destination với LIKE
         if (!empty($data['destination'])) {
-            $tours->where('destination', 'LIKE', '%' . $data['destination'] . '%');
+            $tours->where(function ($query) use ($data) {
+                $query->where('title', 'LIKE', '%' . $data['destination'] . '%')
+                    ->orWhere('description', 'LIKE', '%' . $data['destination'] . '%')
+                    ->orWhere('time', 'LIKE', '%' . $data['destination'] . '%')
+                    ->orWhere('destination', 'LIKE', '%' . $data['destination'] . '%');
+            });
         }
 
         // Thêm điều kiện cho startDate và endDate nếu cần so sánh

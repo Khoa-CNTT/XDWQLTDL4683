@@ -62,8 +62,7 @@ class SearchController extends Controller
 
         return view('clients.search', compact('title', 'tours'));
     }
-
-
+ 
     public function searchTours(Request $request)
     {
         $title = 'Tìm kiếm';
