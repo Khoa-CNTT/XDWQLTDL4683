@@ -127,7 +127,6 @@ Route::post('/create-contact', [ContactController::class, 'createContact'])->nam
 //Search 
 Route::get('/search', [SearchController::class, 'index'])->name(name: 'search');
 Route::get('/search-voice-text', [SearchController::class, 'searchTours'])->name('search-voice-text');
-Route::get('/get-destinations-weather', [SearchController::class, 'getDestinationsAndWeather'])->name('get-destinations-weather');
 
 //ADMIN
 // Routes without middleware
