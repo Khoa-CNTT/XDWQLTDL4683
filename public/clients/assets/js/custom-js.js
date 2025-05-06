@@ -1307,14 +1307,15 @@ function initializeChatbot(chatbotResponseRoute, csrfToken) {
     const chatbotMessages = document.getElementById("chatbot-messages");
     const chatbotInput = document.getElementById("chatbot-input");
     const chatbotSend = document.getElementById("chatbot-send");
-    //Đặt trang thái ban đầu của
+
+    // Đặt trạng thái ban đầu của chatbot
     chatbotBody.style.display = "none";
     chatbotHeader.style.width = "50px";
     chatbotHeader.style.height = "50px";
     chatbotHeader.style.borderRadius = "50%";
+
     // Chatbot toggle functionality
     chatbotHeader.addEventListener("click", function () {
-        // Toggle chatbot visibility
         if (
             chatbotBody.style.display === "none" ||
             chatbotBody.style.display === ""
@@ -1334,11 +1335,26 @@ function initializeChatbot(chatbotResponseRoute, csrfToken) {
                 defaultMessageElement.innerHTML = `
                     <span style="background-color: #f1f1f1; color: black; padding: 5px 10px; border-radius: 10px; display: inline-block; text-align: left; line-height: 1.5;">
                         Xin chào, tôi là trợ lý chatbot. Tôi có thể giúp gì cho bạn hôm nay?
-                    </span>`;
+                    </span>
+                    <div class="chatbot-options-container">
+                        <button class="chatbot-option" data-option="contact">Liên hệ</button>
+                        <button class="chatbot-option" data-option="discount">Mã giảm giá</button>
+                        <button class="chatbot-option" data-option="booking">Đặt tour</button>
+                    </div>`;
                 chatbotMessages.appendChild(defaultMessageElement);
 
                 // Scroll to the bottom
                 chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+
+                // Add event listeners for the buttons
+                document
+                    .querySelectorAll(".chatbot-option")
+                    .forEach((button) => {
+                        button.addEventListener("click", function () {
+                            const option = this.getAttribute("data-option");
+                            handleChatbotOption(option);
+                        });
+                    });
             }
         } else {
             chatbotBody.style.display = "none";
@@ -1401,4 +1417,37 @@ function initializeChatbot(chatbotResponseRoute, csrfToken) {
             chatbotSend.click();
         }
     });
+
+    // Handle chatbot options
+    function handleChatbotOption(option) {
+        let botResponse = "";
+        switch (option) {
+            case "contact":
+                botResponse =
+                    "Bạn có thể liên hệ với chúng tôi qua email: minhhoangse6@gmail.com hoặc hotline: 0905530635.";
+                break;
+            case "discount":
+                botResponse =
+                    "Hiện tại chúng tôi có mã giảm giá 'DISCOUNT10' giảm 10% cho tất cả các tour.";
+                break;
+            case "booking":
+                botResponse =
+                    "Để đặt tour, vui lòng truy cập trang <a href='http://127.0.0.1:8000/tours' target='_blank' style='color: #007bff; text-decoration: underline;'>Đặt Tour</a> hoặc liên hệ với chúng tôi để được hỗ trợ.";
+                break;
+            default:
+                botResponse = "Xin lỗi, tôi không hiểu yêu cầu của bạn.";
+        }
+
+        const botMessageElement = document.createElement("div");
+        botMessageElement.style.textAlign = "left";
+        botMessageElement.style.margin = "5px 0";
+        botMessageElement.innerHTML = `
+            <span style="background-color: #f1f1f1; color: black; padding: 5px 10px; border-radius: 10px; display: inline-block; text-align: left; line-height: 1.5;">
+                ${botResponse}
+            </span>`;
+        chatbotMessages.appendChild(botMessageElement);
+
+        // Scroll to the bottom
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    }
 }

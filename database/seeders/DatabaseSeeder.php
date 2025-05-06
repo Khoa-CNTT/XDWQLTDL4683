@@ -20,5 +20,19 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+        $this->call(ChatbotResponsesTableSeeder::class);
+        $this->call(MigrationsTableSeeder::class);
+        $this->call(PersonalAccessTokensTableSeeder::class);
+        $this->call(TblAdminTableSeeder::class);
+        $this->call(TblBookingTableSeeder::class);
+        $this->call(TblChatTableSeeder::class);
+        $this->call(TblCheckoutTableSeeder::class);
+        $this->call(TblContactTableSeeder::class);
+        $this->call(TblImagesTableSeeder::class);
+        $this->call(TblReviewsTableSeeder::class);
+        $this->call(TblTimelineTableSeeder::class);
+        $this->call(TblToursTableSeeder::class);
+        $this->call(TblUsersTableSeeder::class);
+        $this->call(TblWishlistsTableSeeder::class);
     }
 }

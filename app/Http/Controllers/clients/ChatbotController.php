@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\clients\Tours;
 use App\Models\clients\ChatbotResponse;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Http; // Dùng để gọi API
+use Illuminate\Support\Facades\Http; 
+
 
 class ChatbotController extends Controller
 {
@@ -21,8 +22,6 @@ class ChatbotController extends Controller
             $response = $this->getWeatherInfo($message);
         } elseif (str_contains($message, 'tour') || str_contains($message, 'tours')) {
             $response = $this->listAllTours();
-        } elseif (str_contains($message, 'đổi ngôn ngữ sang')) {
-            $response = $this->changeLanguage($message);
         } else {
             // Kiểm tra phản hồi được định nghĩa trước trong cơ sở dữ liệu
             $chatbotResponse = ChatbotResponse::where('keyword', 'LIKE', "%{$message}%")->first();
@@ -82,7 +81,7 @@ class ChatbotController extends Controller
         preg_match('/thời tiết tại (.+)/', $message, $matches);
         $location = $matches[1] ?? 'Hà Nội';
 
-        $apiKey = '0cab6ec6144bf6bf37f30036e368227b'; // Thay bằng API key của bạn
+        $apiKey = '0cab6ec6144bf6bf37f30036e368227b';
         $url = "https://api.openweathermap.org/data/2.5/weather?q={$location}&appid={$apiKey}&units=metric&lang=vi";
 
         $response = Http::get($url);
@@ -95,5 +94,6 @@ class ChatbotController extends Controller
 
         return __("Xin lỗi, tôi không thể lấy thông tin thời tiết tại địa điểm này.");
     }
+    
     
 }

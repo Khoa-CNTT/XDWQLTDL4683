@@ -123,10 +123,13 @@ Route::post('/reviews', [TourDetailController::class, 'reviews'])->name('reviews
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/create-contact', [ContactController::class, 'createContact'])->name('create-contact');
 
-
 //Search 
 Route::get('/search', [SearchController::class, 'index'])->name(name: 'search');
 Route::get('/search-voice-text', [SearchController::class, 'searchTours'])->name('search-voice-text');
+
+//chatbot
+Route::post('/chatbot/search-tours', [ChatbotController::class, 'searchTours'])->name('chatbot.searchTours');
+Route::post('/chatbot/book-tour', [ChatbotController::class, 'bookTour'])->name('chatbot.bookTour');
 
 //ADMIN
 // Routes without middleware

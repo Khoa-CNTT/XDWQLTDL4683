@@ -597,3 +597,52 @@
     border-radius: 5px;
     cursor: pointer;
 }
+
+/* Khung bao quanh các lựa chọn */
+.chatbot-options-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #f7921e; /* Màu viền */
+    border-radius: 10px;
+    padding: 15px;
+    background-color: #f9f9f9; /* Màu nền */
+    margin-top: 10px;
+    width: 70%; /* Độ rộng khung */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Nút lựa chọn */
+.chatbot-option {
+    margin: 5px 0; /* Khoảng cách giữa các nút */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    width: 100%; /* Độ rộng nút */
+    text-align: center;
+}
+
+/* Màu sắc cho từng nút */
+.chatbot-option[data-option="contact"] {
+    background-color: #ddd;
+    color: black;
+}
+
+.chatbot-option[data-option="discount"] {
+    background-color: #ddd;
+    color: black;
+}
+
+.chatbot-option[data-option="booking"] {
+    background-color: #ddd;
+    color: black;
+}
+
+/* Hiệu ứng hover */
+.chatbot-option:hover {
+    opacity: 0.9;
+}
