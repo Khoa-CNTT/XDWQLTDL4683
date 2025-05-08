@@ -127,9 +127,6 @@ Route::post('/create-contact', [ContactController::class, 'createContact'])->nam
 Route::get('/search', [SearchController::class, 'index'])->name(name: 'search');
 Route::get('/search-voice-text', [SearchController::class, 'searchTours'])->name('search-voice-text');
 
-//chatbot
-Route::post('/chatbot/search-tours', [ChatbotController::class, 'searchTours'])->name('chatbot.searchTours');
-Route::post('/chatbot/book-tour', [ChatbotController::class, 'bookTour'])->name('chatbot.bookTour');
 
 //ADMIN
 // Routes without middleware

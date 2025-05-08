@@ -4,7 +4,7 @@ namespace App\Models\clients;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use OpenAI\Laravel\Facades\OpenAI;
 class ChatbotResponse extends Model
 {
     use HasFactory;

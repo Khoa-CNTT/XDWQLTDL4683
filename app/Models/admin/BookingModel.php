@@ -45,4 +45,5 @@ class BookingModel extends Model
         ->where('bookingId',$bookingId)
         ->update($data);
     }
+    
 }

@@ -307,10 +307,18 @@
                                         VND</span>
                                 </li>
                             </ul>
-                            <button type="submit" class="theme-btn style-two w-100 mt-15 mb-5">
+                            @php
+                                $currentDate = now();
+                                $endDate = \Carbon\Carbon::parse($tourDetail->endDate);
+                            @endphp
+                            <button type="submit" class="theme-btn style-two w-100 mt-15 mb-5"
+                                @if ($currentDate > $endDate) disabled style="background-color: #d3d3d3; color: #6c757d; cursor: not-allowed;" @endif>
                                 <span data-hover="Đặt ngay">Đặt ngay</span>
                                 <i class="fal fa-arrow-right"></i>
                             </button>
+                            @if ($currentDate > $endDate)
+                                <p class="text-danger text-center mt-2">Tour đã kết thúc, không thể đặt.</p>
+                            @endif
                             <div class="text-center">
                                 <a href="{{ route('contact') }}">Bạn cần trợ giúp không?</a>
                             </div>

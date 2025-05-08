@@ -142,7 +142,7 @@
                                             <!-- /.col -->
                                             <div class="col-md-6">
                                                 <p class="lead">Số tiền phải trả trước
-                                                    {{ date('d-m-Y', strtotime($invoice_booking->startDate)) }}</p>
+                                                    {{ date('d-m-Y', strtotime($invoice_booking->bookingDate)) }}</p>
                                                 <div class="table-responsive">
                                                     <table class="table">
                                                         <tbody>
@@ -160,7 +160,7 @@
                                                                 <td>0 VNĐ</td>
                                                             </tr>
                                                             <tr>
-                                                                <th>Tổng tiền:</th>
+                                                                <th>Tổng tiền cần thanh toán:</th>
                                                                 <td>{{ number_format($invoice_booking->amount, 0, ',', '.') }}
                                                                     VNĐ</td>
                                                             </tr>

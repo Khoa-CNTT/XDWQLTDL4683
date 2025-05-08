@@ -205,36 +205,5 @@ class ChatbotController extends Controller
 
         return __("Xin lỗi, tôi không có thông tin phù hợp với yêu cầu của bạn.");
     }
-    // Hàm đặt tour
-    public function bookTour(Request $request)
-    {
-        $tourId = $request->input('tourId');
-        $userId = $request->input('userId');
-        $quantity = $request->input('quantity');
-
-        // Gọi hàm đặt tour từ controller TourDetailController
-        return app(TourDetailController::class)->bookTour($tourId, $userId, $quantity);
-    }
-    // Hàm tìm kiếm tour
-    public function searchTours(Request $request)
-    {
-        $keyword = $request->input('keyword');
-        $tours = Tours::where('title', 'LIKE', "%{$keyword}%")->get();
-
-        if ($tours->isEmpty()) {
-            return response()->json(['response' => __('Không tìm thấy tour nào với từ khóa này.')]);
-        }
-
-        $response = __("Các tour tìm thấy:") . "<br>";
-        foreach ($tours as $tour) {
-            $response .= "<div style='margin-bottom: 10px;'>
-                            <strong>{$tour->title}</strong><br>
-                            " . __("Điểm đến") . ": {$tour->destination}<br>
-                            " . __("Giá") . ": {$tour->priceAdult} VND<br>
-                            <a href='/tour-detail/{$tour->tourId}' class='btn btn-primary'>" . __("Xem chi tiết") . "</a>
-                        </div>";
-        }
-
-        return response()->json(['response' => $response]);
-    }
+    
 }
