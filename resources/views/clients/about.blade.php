@@ -160,8 +160,9 @@
                     <div class="content">
                         <h6>TRAN MINH HOANG</h6>
                         <span class="designation">Founder</span>
-                        <div class="social-style-one inner-content">                           
-                            <a href="https://www.facebook.com/profile.php?id=100024356621721"><i class="fab fa-facebook-f"></i></a>
+                        <div class="social-style-one inner-content">
+                            <a href="https://www.facebook.com/profile.php?id=100024356621721"><i
+                                    class="fab fa-facebook-f"></i></a>
                             <a href="https://www.instagram.com/03_mhg/"><i class="fab fa-instagram"></i></a>
                             <a href="https://www.youtube.com/@minhhoangtran3785"><i class="fab fa-youtube"></i></a>
                             <a href="https://www.tiktok.com/"><i class="fab fa-tiktok"></i></a>
@@ -172,15 +173,15 @@
             <div class="col-xl-3 col-lg-4 col-sm-6">
                 <div class="team-item hover-content" data-aos="fade-up" data-aos-duration="1500"
                     data-aos-offset="50">
-                    <img src="{{ asset('clients/assets/images/team/guide-hoang.jpg') }}" alt="Guide">
+                    <img src="{{ asset('clients/assets/images/team/guide-khoi.jpg') }}" alt="Guide">
                     <div class="content">
-                        <h6>TRAN MINH HOANG</h6>
+                        <h6>VĂN KHÔI</h6>
                         <span class="designation">Founder</span>
-                        <div class="social-style-one inner-content">                           
-                            <a href="https://www.facebook.com/profile.php?id=100024356621721"><i class="fab fa-facebook-f"></i></a>
-                            <a href="https://www.instagram.com/03_mhg/"><i class="fab fa-instagram"></i></a>
-                            <a href="https://www.youtube.com/@minhhoangtran3785"><i class="fab fa-youtube"></i></a>
-                            <a href="https://www.tiktok.com/"><i class="fab fa-tiktok"></i></a>
+                        <div class="social-style-one inner-content">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                            <a href="#"><i class="fab fa-tiktok"></i></a>
                         </div>
                     </div>
                 </div>
@@ -188,15 +189,15 @@
             <div class="col-xl-3 col-lg-4 col-sm-6">
                 <div class="team-item hover-content" data-aos="fade-up" data-aos-duration="1500"
                     data-aos-offset="50">
-                    <img src="{{ asset('clients/assets/images/team/guide-hoang.jpg') }}" alt="Guide">
+                    <img src="{{ asset('clients/assets/images/team/guide-duy.jpg') }}" alt="Guide">
                     <div class="content">
-                        <h6>TRAN MINH HOANG</h6>
+                        <h6>TUẤN DUY</h6>
                         <span class="designation">Founder</span>
-                        <div class="social-style-one inner-content">                           
-                            <a href="https://www.facebook.com/profile.php?id=100024356621721"><i class="fab fa-facebook-f"></i></a>
-                            <a href="https://www.instagram.com/03_mhg/"><i class="fab fa-instagram"></i></a>
-                            <a href="https://www.youtube.com/@minhhoangtran3785"><i class="fab fa-youtube"></i></a>
-                            <a href="https://www.tiktok.com/"><i class="fab fa-tiktok"></i></a>
+                        <div class="social-style-one inner-content">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                            <a href="#"><i class="fab fa-tiktok"></i></a>
                         </div>
                     </div>
                 </div>
@@ -204,15 +205,15 @@
             <div class="col-xl-3 col-lg-4 col-sm-6">
                 <div class="team-item hover-content" data-aos="fade-up" data-aos-duration="1500"
                     data-aos-offset="50">
-                    <img src="{{ asset('clients/assets/images/team/guide-hoang.jpg') }}" alt="Guide">
+                    <img src="{{ asset('clients/assets/images/team/guide-phong.jpg') }}" alt="Guide">
                     <div class="content">
-                        <h6>TRAN MINH HOANG</h6>
+                        <h6>QUỐC PHONG</h6>
                         <span class="designation">Founder</span>
-                        <div class="social-style-one inner-content">                           
-                            <a href="https://www.facebook.com/profile.php?id=100024356621721"><i class="fab fa-facebook-f"></i></a>
-                            <a href="https://www.instagram.com/03_mhg/"><i class="fab fa-instagram"></i></a>
-                            <a href="https://www.youtube.com/@minhhoangtran3785"><i class="fab fa-youtube"></i></a>
-                            <a href="https://www.tiktok.com/"><i class="fab fa-tiktok"></i></a>
+                        <div class="social-style-one inner-content">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                            <a href="#"><i class="fab fa-tiktok"></i></a>
                         </div>
                     </div>
                 </div>
@@ -220,15 +221,15 @@
             <div class="col-xl-3 col-lg-4 col-sm-6">
                 <div class="team-item hover-content" data-aos="fade-up" data-aos-duration="1500"
                     data-aos-offset="50">
-                    <img src="{{ asset('clients/assets/images/team/guide-hoang.jpg') }}" alt="Guide">
+                    <img src="{{ asset('clients/assets/images/team/guide-bao.jpg') }}" alt="Guide">
                     <div class="content">
-                        <h6>TRAN MINH HOANG</h6>
+                        <h6>ĐÌNH BẢO</h6>
                         <span class="designation">Founder</span>
-                        <div class="social-style-one inner-content">                           
-                            <a href="https://www.facebook.com/profile.php?id=100024356621721"><i class="fab fa-facebook-f"></i></a>
-                            <a href="https://www.instagram.com/03_mhg/"><i class="fab fa-instagram"></i></a>
-                            <a href="https://www.youtube.com/@minhhoangtran3785"><i class="fab fa-youtube"></i></a>
-                            <a href="https://www.tiktok.com/"><i class="fab fa-tiktok"></i></a>
+                        <div class="social-style-one inner-content">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                            <a href="#"><i class="fab fa-tiktok"></i></a>
                         </div>
                     </div>
                 </div>

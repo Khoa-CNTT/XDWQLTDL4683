@@ -39,7 +39,7 @@
                         </div>
                         <ul class="list-style-three">
                             <li><a href="{{ route('about') }}">Giới thiệu về công ty</a></li>
-                            <li><a href="{{ route('contact') }}">Việc làm và nghề nghiệp</a></li>
+                            <li><a href="{{ route('careers') }}">Việc làm và nghề nghiệp</a></li>
                             <li><a href="{{ route('contact') }}">Liên hệ với chúng tôi</a></li>
                         </ul>
                     </div>

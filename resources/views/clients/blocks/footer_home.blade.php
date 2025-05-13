@@ -14,10 +14,11 @@
                             chuyến đi đều
                             liền mạch và làm phong phú thêm những viên ngọc ẩn giấu</p>
                         <div class="social-style-one mt-15">
-                            <a href="https://www.facebook.com/dienne.dev"><i class="fab fa-facebook-f"></i></a>
-                            <a href="contact.html"><i class="fab fa-youtube"></i></a>
-                            <a href="contact.html"><i class="fab fa-pinterest"></i></a>
-                            <a href="contact.html"><i class="fab fa-twitter"></i></a>
+                            <a href="https://www.facebook.com/profile.php?id=100024356621721"><i
+                                    class="fab fa-facebook-f"></i></a>
+                            <a href="https://www.instagram.com/03_mhg/"><i class="fab fa-instagram"></i></a>
+                            <a href="https://www.youtube.com/@minhhoangtran3785"><i class="fab fa-youtube"></i></a>
+                            <a href="https://www.tiktok.com/"><i class="fab fa-tiktok"></i></a>
                         </div>
                     </div>
                 </div>
@@ -28,13 +29,15 @@
                         <p>Website <span class="count-text plus" data-speed="3000" data-stop="34500">0</span> trải
                             nghiệm phổ biến nhất mà bạn sẽ nhớ</p>
                     </div>
-                    <form class="newsletter-form mb-50" action="#">
-                        <input id="news-email" type="email" placeholder="Email Address" required>
+                    <form class="newsletter-form mb-50" id="newsletter-form">
+                        @csrf
+                        <input id="news-email" type="email" name="email" placeholder="Email Address" required>
                         <button type="submit" class="theme-btn bgc-secondary style-two">
                             <span data-hover="Đăng ký">Đăng ký</span>
                             <i class="fal fa-arrow-right"></i>
                         </button>
                     </form>
+
                 </div>
             </div>
         </div>
@@ -62,7 +65,7 @@
                         </div>
                         <ul class="list-style-three">
                             <li><a href="{{ route('about') }}">Giới thiệu về công ty</a></li>
-                            <li><a href="{{ route('contact') }}">Việc làm và nghề nghiệp</a></li>
+                            <li><a href="{{ route('careers') }}">Việc làm và nghề nghiệp</a></li>
                             <li><a href="{{ route('contact') }}">Liên hệ với chúng tôi</a></li>
                         </ul>
                     </div>
@@ -197,6 +200,11 @@
 <script>
     // Initialize the chatbot functionality
     initializeChatbot('{{ route('chatbot.response') }}', '{{ csrf_token() }}');
+</script>
+
+<!-- Định nghĩa route cho newsletter -->
+<script>
+    const newsletterSubscribeRoute = "{{ route('newsletter.subscribe') }}";
 </script>
 
 </body>

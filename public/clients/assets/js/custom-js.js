@@ -1451,3 +1451,40 @@ function initializeChatbot(chatbotResponseRoute, csrfToken) {
         chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
     }
 }
+/****************************************
+ *                newsletter            *
+ * ***************************************/
+// Handle newsletter form submission
+$(document).ready(function () {
+    $("#newsletter-form").on("submit", function (e) {
+        e.preventDefault();
+
+        const email = $("#news-email").val();
+        const token = $('input[name="_token"]').val();
+
+        fetch(newsletterSubscribeRoute, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": token,
+            },
+            body: JSON.stringify({ email: email }),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.success) {
+                    // Hiển thị thông báo thành công bằng Toastr
+                    toastr.success(data.message, "Thành công");
+                    $("#news-email").val(""); // Xóa nội dung email sau khi gửi
+                } else {
+                    // Hiển thị thông báo lỗi bằng Toastr
+                    toastr.error("Đăng ký thất bại. Vui lòng thử lại.", "Lỗi");
+                }
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+                // Hiển thị thông báo lỗi bằng Toastr
+                toastr.error("Đã xảy ra lỗi. Vui lòng thử lại.", "Lỗi");
+            });
+    });
+});

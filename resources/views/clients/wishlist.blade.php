@@ -8,8 +8,10 @@
         <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-10 rmb-75">
                 <div class="shop-sidebar mb-30">
-                    <h6 class="widget-title">Danh sách tour tour du lịch yêu thích của bạn</h6>
-                    <p>Theo dõi các tour du lịch yêu thích của bạn tại đây. Sẵn sàng đặt tour chưa? Nhấp vào tour để xem
+                    <h5 class="widget-title">Danh sách tour du lịch yêu thích của bạn</h5>
+                    <p style="font-size: 18px">Theo dõi các tour du lịch yêu thích của bạn tại đây. Sẵn sàng đặt tour
+                        chưa? Truy cập <a href="{{ route('tours') }}"
+                            style="color: blue; text-decoration: underline;">Tours</a> để xem
                         thêm chi tiết!</p>
                 </div>
             </div>

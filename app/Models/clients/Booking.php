@@ -33,4 +33,13 @@ class Booking extends Model
         ->where('bookingStatus', 'f')
         ->exists(); // Trả về true nếu bản ghi tồn tại, false nếu không tồn tại
     }
+
+    public function updateExpiredBookings()
+    {
+        return DB::table($this->table)
+            ->where('bookingStatus', '!=', 'c') // Chỉ cập nhật nếu bookingStatus không phải là 'c'
+            ->whereDate('end_date', '<', now()) // Kiểm tra nếu ngày hiện tại lớn hơn end_date
+            ->update(['bookingStatus' => 'f']); // Cập nhật bookingStatus thành 'f'
+    }
+
 }

@@ -26,6 +26,8 @@ use App\Http\Controllers\clients\SearchController;
 use App\Http\Controllers\clients\TourBookedController;
 use App\Http\Controllers\clients\WishlistController;
 use App\Http\Controllers\clients\ChatbotController;
+use App\Http\Controllers\clients\CareersController;
+use App\Http\Controllers\clients\NewsletterController;
 
 
 /*
@@ -127,6 +129,13 @@ Route::post('/create-contact', [ContactController::class, 'createContact'])->nam
 Route::get('/search', [SearchController::class, 'index'])->name(name: 'search');
 Route::get('/search-voice-text', [SearchController::class, 'searchTours'])->name('search-voice-text');
 
+//Đăng ký nhận bản tin
+Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
+// Trang Việc làm và Nghề nghiệp
+Route::get('/careers', [CareersController::class, 'index'])->name('careers');
+
+// Gửi thông tin ứng tuyển
+Route::post('/careers/apply', [CareersController::class, 'submitApplication'])->name('careers.apply');
 
 //ADMIN
 // Routes without middleware

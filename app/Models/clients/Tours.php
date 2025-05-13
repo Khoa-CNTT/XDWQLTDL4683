@@ -368,4 +368,16 @@ class Tours extends Model
 
         return $similarTours;
     }
+
+    //Lấy danh sách tour ngẫu nhiên
+    public function getRandomTours($limit = 1)
+{
+    // Lấy danh sách tour ngẫu nhiên
+    $allTours = DB::table('tbl_tours')
+        ->where('availability', 1)
+        ->inRandomOrder()
+        ->limit($limit)
+        ->get();
+    return $allTours;
+}
 }

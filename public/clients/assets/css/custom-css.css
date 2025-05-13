@@ -646,3 +646,86 @@
 .chatbot-option:hover {
     opacity: 0.9;
 }
+
+/****************************************
+*                 Careers               *
+* ***************************************/
+/* Careers Page Styling */
+.careers-page {
+    background-color: #f9f9f9;
+    padding: 50px 0;
+}
+
+.careers-page .section-title h2 {
+    font-size: 32px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.careers-page .section-title p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.careers-page .form-group {
+    margin-bottom: 20px;
+}
+
+.careers-page .form-group label {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.careers-page .form-control {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 14px;
+    color: #555;
+    width: 100%;
+    box-shadow: none;
+    transition: all 0.3s ease;
+}
+
+.careers-page .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.careers-page .theme-btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.careers-page .theme-btn:hover {
+    background-color: #0056b3;
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 91, 187, 0.3);
+}
+
+.careers-page .alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+}
+
+.contact-map iframe {
+    border-radius: 10px;
+    margin-top: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
