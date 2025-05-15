@@ -136,6 +136,9 @@ $(document).ready(function () {
                     // Điền dữ liệu vào các field
                     $("input[name='name']").val(tour.title);
                     $("input[name='destination']").val(tour.destination);
+                    $("input[name='weather_destination']").val(
+                        tour.weather_destination
+                    );
                     $("select[name='domain']").val(tour.domain); // Giá trị select
                     $("input[name='number']").val(tour.quantity);
                     $("input[name='price_adult']").val(tour.priceAdult);
@@ -278,6 +281,9 @@ $(document).ready(function () {
                         tourId: tourIdSendingImage,
                         name: $("input[name='name']").val(),
                         destination: $("input[name='destination']").val(),
+                        weather_destination: $(
+                            "input[name='weather_destination']"
+                        ).val(),
                         domain: $("#domain").val(),
                         number: $("input[name='number']").val(),
                         price_adult: $("input[name='price_adult']").val(),
@@ -338,7 +344,35 @@ $(document).ready(function () {
             init: function () {
                 // Lắng nghe sự kiện 'sending' để thêm thông tin vào formData
                 this.on("sending", function (file, xhr, formData) {
-                    formData.append("tourId", tourIdSendingImage); // tourId là ID của tour mà bạn cần gửi
+                    formData.append("tourId", tourIdSendingImage); // Thêm tourId vào formData
+                    console.log("Sending file:", file.name); // Log tên file đang gửi
+                });
+
+                // Lắng nghe sự kiện 'success' khi upload thành công
+                this.on("success", function (file, response) {
+                    console.log("Upload success:", response); // Log response từ server
+                    if (response.success) {
+                        toastr.success("Ảnh đã được tải lên thành công!");
+                    } else {
+                        toastr.error("Tải lên thất bại: " + response.message);
+                    }
+                });
+
+                // Lắng nghe sự kiện 'error' khi upload thất bại
+                this.on("error", function (file, errorMessage, xhr) {
+                    console.error(
+                        "Error uploading file:",
+                        file.name,
+                        errorMessage
+                    ); // Log lỗi chi tiết
+                    toastr.error(
+                        "Có lỗi xảy ra khi tải lên ảnh: " + errorMessage
+                    );
+                });
+
+                // Lắng nghe sự kiện 'complete' khi upload hoàn tất
+                this.on("complete", function (file) {
+                    console.log("Upload complete for file:", file.name); // Log khi upload hoàn tất
                 });
             },
         });
@@ -354,7 +388,7 @@ $(document).ready(function () {
 
     function loadOldImages(images) {
         images.forEach(function (image) {
-            let imageUrl = `/admin/assets/images/gallery-tours/${image.imageURL}`; // Tạo đường dẫn đầy đủ
+            let imageUrl = `/clients/assets/images/gallery-tours/${image.imageURL}`; // Tạo đường dẫn đầy đủ
 
             let mockFile = {
                 name: image.imageURL, // Tên tệp ảnh

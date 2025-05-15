@@ -7,6 +7,7 @@ use App\Models\admin\ToursModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Log;
 
 
 class ToursManagementController extends Controller
@@ -86,50 +87,60 @@ class ToursManagementController extends Controller
 
     }
 
-
     public function addImagesTours(Request $request)
     {
-        $tourId = $request->tourId;
-        $images = $request->input('images');  // Mảng các tên ảnh gửi lên từ request
+        try {
+            $image = $request->file('image');
+            $tourId = $request->tourId;
 
-        // Kiểm tra xem mảng ảnh có tồn tại và không rỗng
-        if (empty($images)) {
-            return response()->json([
-                'success' => false,
-                'message' => 'No images provided',
-            ]);
-        }
-        //Kiểm tra xem mảng ảnh có tồn tại và không rỗng
-        if (empty($images)) {
-            return response()->json([
-                'success' => false,
-                'message' => 'No images provided',
-            ]);
-        }
-        //Lặp qua từng ảnh trong mảng và lưu vào cơ sở dữ liệu
-        foreach ($images as $image) {
+            // Kiểm tra xem file có hợp lệ không
+            if (!$image->isValid()) {
+                return response()->json(['success' => false, 'message' => 'Invalid file upload'], 400);
+            }
+
+            // Lấy tên gốc của file (không bao gồm đường dẫn)
+            $originalName = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+
+            // Lấy phần mở rộng của file
+            $extension = $image->getClientOriginalExtension();
+
+            // Tạo tên file mới: [original_name]_[timestamp].[extension]
+            $filename = preg_replace('/[^A-Za-z0-9_\-]/', '_', $originalName) . '_' . time() . '.' . $extension;
+
+            // Resize hình ảnh về kích thước 400x350
+            $resizedImage = Image::make($image)->resize(400, 350);
+
+            // Di chuyển file vào thư mục đích
+            $destinationPath = public_path('clients/assets/images/gallery-tours/');
+            $resizedImage->save($destinationPath . $filename); // Lưu ảnh đã resize
+
+            // Tạo dữ liệu để lưu vào cơ sở dữ liệu
             $dataUpload = [
                 'tourId' => $tourId,
-                'imageURL' => $image,
-                'description' => 'Tour Image'  // Mô tả ảnh (có thể thay đổi theo nhu cầu)
+                'imageURL' => $filename,
+                'description' => $originalName
             ];
-            $this->tours->uploadImages($dataUpload);
-        }
-        //Lưu thông tin vào cơ sở dữ liệu
-        $uploadImage = $this->tours->uploadImages($dataUpload);
-        // Kiểm tra kết quả lưu trữ
-        if ($uploadImage) {
-            return response()->json([
-                'success' => true,
-                'message' => 'Images uploaded successfully',
-                'data' => [
-                    'tourId' => $tourId
-                ]
-            ], 200);
-        }
 
-        // Nếu không thành công, trả về thông báo lỗi
-        return response()->json(['success' => false, 'message' => 'Failed to save image data'], 500);
+            // Lưu thông tin vào cơ sở dữ liệu
+            $uploadImage = $this->tours->uploadImages($dataUpload);
+
+            // Kiểm tra kết quả lưu trữ
+            if ($uploadImage) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Image uploaded successfully',
+                    'data' => [
+                        'filename' => $filename,
+                        'tourId' => $tourId
+                    ]
+                ], 200);
+            }
+
+            return response()->json(['success' => false, 'message' => 'Failed to save image data'], 500);
+        } catch (\Exception $e) {
+            // Xử lý lỗi bất ngờ
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
+        }
     }
 
     public function addTimeline(Request $request)
@@ -226,7 +237,7 @@ class ToursManagementController extends Controller
             $resizedImage = Image::make($image)->resize(400, 350);
 
             // Di chuyển file vào thư mục đích
-            $destinationPath = public_path('admin/assets/images/gallery-tours/');
+            $destinationPath = public_path('clients/assets/images/gallery-tours/');
             $resizedImage->save($destinationPath . $filename); // Lưu ảnh đã resize
 
             // Tạo dữ liệu để lưu vào cơ sở dữ liệu
